@@ -1,5 +1,6 @@
 import LoginHelper from './main/login/login';
 import './jui/juiLoader';
+import './main/loading/loading';
 import './main/overlay/overlay';
 
 
