@@ -1,6 +1,7 @@
 import LoginHelper from './main/login/login';
 import MenuView from './main/menu/MenuView';
 import './jui/juiLoader';
+import './actions';
 import './main/loading/loading';
 import './main/overlay/overlay';
 import './styles/general.scss';
