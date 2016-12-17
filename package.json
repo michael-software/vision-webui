@@ -4,7 +4,7 @@
   "description": "WebUI for vision-server",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --colors --progress --config ./webpack/dev.babel.js --host 0.0.0.0",
+    "start": "webpack-dev-server --colors --progress --config ./webpack/dev.babel.js --host 0.0.0.0 --history-api-fallback",
     "build": "webpack -p --colors --progress --config ./webpack/prod.babel.js"
   },
   "repository": {

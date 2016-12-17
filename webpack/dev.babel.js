@@ -34,5 +34,10 @@ export default {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
-    ]
+    ],
+    devServer: {
+        port: 8080,
+        historyApiFallback: true
+    },
+    historyApiFallback: true
 };
