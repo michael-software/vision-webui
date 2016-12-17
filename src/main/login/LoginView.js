@@ -63,7 +63,8 @@ export default class LoginView {
 	}
 
 	hide() {
-		this._loginForm.classList.add('loginView--hidden');
+		if(this._loginForm)
+			this._loginForm.classList.add('loginView--hidden');
 	}
 
 	_login() {

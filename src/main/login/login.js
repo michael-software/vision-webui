@@ -4,20 +4,53 @@ export default class LoginHelper {
     constructor() {
         this.loginView = new LoginView(this);
 
-        window.socket.emit('login', {
-            server: 'http://mymanager.no-ip.org',
-            bearer: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImp0aSI6IjU4NGRhNjhjZDRjOTciLCJleHAiOjE0ODE5MzM2OTAsIm5hbWUiOiJhZG1pbiIsIl9zZWsiOiI1NmY1NTIwYzI1NDg4YTY2NDNmZmY3NTJhZWJhN2VlMDBiNzJhY2E3NTQyMWNmYTAyMDExNTk3OGY1NGE1NTJmMjc2ZmZlZjgwNWVmYjEwYjZiMzVmMWY0YzQ0OTFkYzA4MDBkZGRhOWQxYjZhMzBkYjY1ZGZmMDk3NzYxNGFlNSJ9.g4XbwJ4uDpwNeEdms5tyysurm73z7bF1ttDlPNWFips'
-        });
-
         window.socket.on('loginstatus', (data) => {
             if (data.status == 401) {
                 this.showLogin();
             } else {
-                this.closeLogin();
-                //this.openMenu();
-                console.log('loggedin', data);
+                this.parseLogin(data);
             }
         });
+
+
+        if(localStorage.getItem('token') && localStorage.getItem('server')) {
+            window.socket.emit('login', {
+                server: localStorage.getItem('server'),
+                bearer: localStorage.getItem('token')
+            });
+        } else {
+            console.log('test');
+            this.showLogin();
+        }
+    }
+
+    parseLogin(data) {
+        if(data.status == 200) {
+            if(data.username && data.token) {
+                window.user = {
+                    username: data.username,
+                    token: data.token
+                };
+
+                this.saveToken(data.server, data.token);
+
+                this.closeLogin();
+
+
+                if(this.loginCallback) {
+                    this.loginCallback(data);
+                }
+
+                return;
+            }
+        }
+
+        this.showLogin();
+    }
+
+    saveToken(server, token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('server', server);
     }
 
     showLogin() {
@@ -29,8 +62,13 @@ export default class LoginHelper {
         new window.loadingIndicator.hide('login');
     }
 
-    openMenu() {
-        this.menuView.show();
+    on(type, callback) {
+        switch(type) {
+            case 'login':
+                this.loginCallback = callback;
+                break;
+            default: break;
+        }
     }
 
     login(server, username, password) {
