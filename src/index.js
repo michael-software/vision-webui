@@ -15,5 +15,5 @@ window.ready(function () {
         }
     });
 
-    LoginHelper.init();
+    let loginHelper = new LoginHelper();
 });
