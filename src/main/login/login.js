@@ -29,7 +29,8 @@ export default class LoginHelper {
             if(data.username && data.token) {
                 window.user = {
                     username: data.username,
-                    token: data.token
+                    token: data.token,
+                    server: data.server
                 };
 
                 this.saveToken(data.server, data.token);
