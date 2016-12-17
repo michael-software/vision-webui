@@ -1,5 +1,6 @@
 import LoginHelper from './main/login/login';
 import MenuView from './main/menu/MenuView';
+import ContentView from './main/content/ContentView';
 import './jui/juiLoader';
 import './actions';
 import './main/loading/loading';
@@ -22,9 +23,11 @@ window.ready(function () {
 
         let loginHelper = new LoginHelper();
         let menuView = new MenuView();
+        let contentView = new ContentView();
 
         loginHelper.on('login', (data) => {
             menuView.load();
+            contentView.show();
             console.log(window.user);
         });
     } );
