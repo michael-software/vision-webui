@@ -1,4 +1,5 @@
 import MenuItem from './MenuItem';
+import './MenuView.scss';
 
 export default class MenuView {
 	constructor() {

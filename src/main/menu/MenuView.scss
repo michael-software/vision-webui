@@ -1,0 +1,78 @@
+.menu--container {
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 88px;
+  overflow: hidden;
+
+  background-color: #D0D0D0;
+
+  animation-name: showMenuContainer;
+  animation-duration: .35s;
+  animation-timing-function: ease-out;
+}
+
+.menu {
+  animation-name: showMenu;
+  animation-duration: .7s;
+  animation-timing-function: ease-in;
+}
+
+.menu {
+  display: flex;
+
+  overflow-y: hidden;
+  overflow-x: scroll;
+
+  user-select: none;
+}
+
+.menu__item {
+  min-width: 90px;
+  overflow: hidden;
+
+  cursor: pointer;
+  padding: 5px;
+
+  transition: background-color .2s;
+
+  &--icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    height: 60px;
+  }
+
+  &--name {
+    width: 100%;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    font-weight: bold;
+
+    text-align: center;
+  }
+
+  &:hover {
+    background-color: #E8E8E8;
+    color: #FF0000;
+  }
+}
+
+
+@keyframes showMenuContainer {
+  0% {transform:translateY(100%); opacity: 0}
+  100% {transform:translateY(0); opacity: 1}
+}
+
+@keyframes showMenu {
+  0% { opacity: 0}
+  100% { opacity: 1}
+}
