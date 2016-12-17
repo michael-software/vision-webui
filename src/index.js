@@ -1,5 +1,7 @@
 import LoginHelper from './main/login/login';
+import MenuView from './main/menu/MenuView';
 import './jui/juiLoader';
+import './actions';
 import './main/loading/loading';
 import './main/overlay/overlay';
 import './styles/general.scss';
@@ -19,7 +21,10 @@ window.ready(function () {
         }
 
         let loginHelper = new LoginHelper();
+        let menuView = new MenuView();
+
         loginHelper.on('login', (data) => {
+            menuView.load();
             console.log(window.user);
         });
     } );
