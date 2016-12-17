@@ -15,5 +15,5 @@ window.ready(function () {
         window.Promise = Promise;
     }
 
-    LoginHelper.init();
+    let loginHelper = new LoginHelper();
 });

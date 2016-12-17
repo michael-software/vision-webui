@@ -1,0 +1,62 @@
+.loginView {
+  position: fixed;
+
+  background-color: #FFFFFF;
+
+  text-align: center;
+
+  input {
+    display: block;
+
+    width: 60%;
+
+    font-size: 12px;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+.loginView--hidden {
+  top: -100% !important;
+  opacity: 0;
+
+  animation-name: hideLogin;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+}
+
+@media screen and (max-width: 480px) {
+  .loginView {
+    top: 50%;
+    left: 0;
+    right: 0;
+
+    padding: 15px;
+
+    transform: translateY(-50%);
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .loginView {
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 80%;
+    height: 200px;
+  }
+}
+
+
+@keyframes hideLogin {
+  0% {top: 50%; opacity: 1;}
+  50% {opacity: 0;}
+  100% {top: 100% !important;}
+}
