@@ -19,5 +19,8 @@ window.ready(function () {
         }
 
         let loginHelper = new LoginHelper();
+        loginHelper.on('login', (data) => {
+            console.log(window.user);
+        });
     } );
 });
