@@ -24,6 +24,7 @@ window.ready(function () {
         let menuView = new MenuView();
 
         loginHelper.on('login', (data) => {
+            menuView.load();
             console.log(window.user);
         });
     } );
