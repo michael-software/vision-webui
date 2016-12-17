@@ -1,0 +1,19 @@
+.overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 9;
+
+  opacity: 0.7;
+  background-color: #000000;
+
+  transition: opacity .5s;
+
+  &--hide {
+    opacity: 0 !important;
+  }
+}
