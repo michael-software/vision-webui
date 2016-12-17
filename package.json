@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/michaelsoftware1997/vision-webui#readme",
   "dependencies": {
-
+    "promise-polyfill": "^6.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
