@@ -1,5 +1,9 @@
 import CallbackHelper from '../../utils/CallbackHelper';
 
+import '../../jui/custom/AutoInput';
+import '../../jui/custom/ButtonList';
+import '../../jui/custom/Editor';
+
 import './ContentView.scss';
 
 export default class ContentView {
@@ -24,16 +28,42 @@ export default class ContentView {
 		});
 
 		this.hashChanged(this.getHash());
+
+		window.jui.init(this._content);
+		window.jui.clean();
+
+		window.jui.registerCustomElement('buttonlist', window.buttonlist,'bl');
+		window.jui.registerCustomElement('editor', window.editor,'ed');
+		window.jui.registerCustomElement('autoinput', window.autoinput,'ai');
+
+		window.jui.setSubmitCallback(function(formData, name, element) {
+			if(element.classList.contains('editor') && element.querySelector('.html') != null) {
+				if(!window.jui.tools.empty(element.querySelector('.html').innerHTML)) {
+					formData.append(name, element.querySelector('.html').innerHTML);
+				}
+			}
+		});
+
+		window.jui.action.addAction('openPlugin', window.actions.openPlugin);
+
+		window.socket.on('plugin', this.parse.bind(this));
 	}
 
 	parseState(state) {
 		if (state == null) {
 			this.openHome();
 		} else {
-			console.log(state);
-
 			this.loadPlugin();
 		}
+	}
+
+	parse(data) {
+		console.log('data', data.request, data.response);
+		this._content.innerHTML = '';
+		window.jui.parse(data.response, null, true);
+
+		clearTimeout(this._timeout);
+		window.loadingIndicator.hide('plugin');
 	}
 
 	show() {
@@ -88,6 +118,14 @@ export default class ContentView {
 	}
 
 	loadPlugin(name, view, param) {
-		this._content.appendChild(document.createTextNode(name + ':' + view + ':' + param));
+		this._timeout = window.setTimeout(() => {
+			window.loadingIndicator.show('plugin');
+		}, 200);
+
+		window.socket.emit('plugin', {
+			name: name,
+			view: view,
+			param: param
+		});
 	}
 }
