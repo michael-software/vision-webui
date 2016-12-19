@@ -25,6 +25,10 @@ export default {
                 exclude: /node_modules/
             },
             {
+                test: /\.css$/,
+                loader: "style-loader!css-loader?root=."
+            },
+            {
                 test: /\.scss$/,
                 loader: 'style!css!sass',
                 exclude: /node_modules/

@@ -3,7 +3,7 @@
     var actions = [];
 
 	action.call = function(action) {
-        name = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$1').toLowerCase(); //(?<!\\)(?:\\{2})*\K"
+        var name = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$1').toLowerCase(); //(?<!\\)(?:\\{2})*\K"
 
 /*
         values = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$2');
@@ -21,7 +21,7 @@
 
 
 
-        values = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$2'); // removes name
+        var values = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$2'); // removes name
         values = values.replace(/ ,/g, ',').replace(/, /g, ','); // deletes whitespace
 
         values = values.trim();

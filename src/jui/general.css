@@ -1,0 +1,27 @@
+ul.jui__list {
+    list-style-type: none;
+    padding-left: 0;
+
+    cursor: default;
+
+    user-select: none;
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    -webkit-touch-callout: none; /* iOS Safari */
+}
+
+ul.jui__list li {
+    padding: 5px;
+    border-bottom: 1px solid #BBBBBB;
+
+    transition: background-color .2s;
+}
+
+ul.jui__list li:hover {
+    background-color: #AAAAAA;
+}
+
+ul.jui__list li:last-child {
+    border: 0;
+}
