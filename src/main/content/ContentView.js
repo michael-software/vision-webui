@@ -4,6 +4,8 @@ import '../../jui/custom/AutoInput';
 import '../../jui/custom/ButtonList';
 import '../../jui/custom/Editor';
 
+import '../actions/gallery';
+
 import './ContentView.scss';
 
 export default class ContentView {
@@ -36,6 +38,8 @@ export default class ContentView {
 		window.jui.registerCustomElement('editor', window.editor,'ed');
 		window.jui.registerCustomElement('autoinput', window.autoinput,'ai');
 
+		window.jui.addOnBeforeParseListener(this._beforeParse.bind(this));
+
 		window.jui.setSubmitCallback(function(formData, name, element) {
 			if(element.classList.contains('editor') && element.querySelector('.html') != null) {
 				if(!window.jui.tools.empty(element.querySelector('.html').innerHTML)) {
@@ -44,9 +48,43 @@ export default class ContentView {
 			}
 		});
 
+		window.jui.setHeadCallback(this.parseHead.bind(this));
+
 		window.jui.action.addAction('openPlugin', window.actions.openPlugin);
+		window.jui.action.addAction('openGallery', (gallery, index) => {
+			var header = this._juiHead;
+
+			if(gallery && header && header[gallery]) {
+				console.log('openGallery', header[gallery]);
+				window.gallery.open(header[gallery], index);
+			}
+		});
 
 		window.socket.on('plugin', this.parse.bind(this));
+	}
+
+	_beforeParse(result, parent) {
+		if(!window.jui.tools.empty(parent)) {
+			return true;
+		}
+
+		if(result.redirect) { // handles redirect requests
+			var red1 = result.redirect[0];
+			var red2 = result.redirect[1];
+			var red3 = result.redirect[2];
+
+			window.actions.openPlugin(red1, red2, red3, true);
+
+			return false;
+		}
+	}
+
+	parseHead(head) {
+		this._juiHead = head;
+
+		if (head['bgcolor'] != null) {
+			this._content.style.backgroundColor = head['bgcolor'];
+		}
 	}
 
 	parseState(state) {
