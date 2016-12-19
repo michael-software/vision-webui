@@ -6,6 +6,10 @@ import './actions';
 import './main/loading/loading';
 import './main/overlay/overlay';
 import './styles/general.scss';
+
+import './jui/general.css';
+import './jui/desktop.css';
+import './jui/mobile.css';
 import Promise from 'promise-polyfill';
 import addHeadElement from './utils/addHeadElement';
 
