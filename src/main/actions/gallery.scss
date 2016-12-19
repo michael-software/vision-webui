@@ -1,0 +1,59 @@
+.image-box {
+  position: relative;
+
+  max-width: 80%;
+  max-height: 90%;
+
+  background-color: #FFFFFF;
+
+  user-select: none;
+
+  box-shadow: 0 0 8px #444444;
+}
+
+.image-box__next, .image-box__last {
+  position: absolute;
+
+  top: 50%;
+
+  width: 50px;
+  height: 50px;
+
+  margin-top: -25px;
+
+  background-color: #FFFFFF;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  cursor: pointer;
+
+  opacity: 0.5;
+}
+
+.image-box__next:hover, .image-box__last:hover {
+  opacity: 0.8;
+}
+
+
+.image-box {
+  &__next, &__last {
+    font-size: 30px;
+    line-height: 50px;
+    text-align: center;
+
+    transition: opacity .1s, color .3s;
+
+    &:hover {
+      color: #FF0000;
+    }
+  }
+
+  &__next {
+    right: -50px;
+  }
+
+  &__last {
+    left: -50px;
+  }
+}
