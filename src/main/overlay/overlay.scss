@@ -16,4 +16,26 @@
   &--hide {
     opacity: 0 !important;
   }
+
+  &__content {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 10;
+
+    &--hide {
+      opacity: 0 !important;
+    }
+
+    &--center {
+      display: flex !important;
+
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
