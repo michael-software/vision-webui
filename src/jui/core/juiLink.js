@@ -41,6 +41,7 @@ window.jui.views.link = (function (jsonObject) {
     _this.getDomElement = function () {
         if(!_tools.empty(value)) {
             var retval = document.createElement('a');
+            retval.className = 'jui__link';
 
             retval.appendChild(document.createTextNode(value));
 

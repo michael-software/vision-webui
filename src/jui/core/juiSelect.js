@@ -32,6 +32,7 @@ window.jui.views.select = (function (jsonObject) {
         if(!_tools.empty(name)) {
 
             var retval = document.createElement('select');
+            retval.className = 'jui__select';
 
             window.jui.registerSubmitElement(name, retval);
 

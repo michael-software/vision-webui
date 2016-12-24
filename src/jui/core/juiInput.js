@@ -63,21 +63,28 @@ window.jui.views.input = (function (jsonObject) {
 
             if(preset === 1) {
                 var retval = document.createElement('textarea');
+                retval.className = 'jui__textarea';
             } else if(preset === 2) {
                 var retval = document.createElement('input');
                 retval.setAttribute('type', 'password');
+                retval.className = 'jui__password';
             } else if(preset === 3) {
                 var retval = document.createElement('input');
                 retval.setAttribute('type', 'number');
+                retval.className = 'jui__number';
             } else if(preset === 4) {
                 var retval = _this.date();
+                retval.className = 'jui__date';
             } else if(preset === 5) {
                 var retval = document.createElement('input');
                 retval.setAttribute('type', 'color');
+                retval.className = 'jui__color';
             } else {
                 var retval = document.createElement('input');
                 retval.setAttribute('type', 'text');
             }
+
+            retval.classList.add('jui__input');
 
             window.jui.registerSubmitElement(name, retval);
             

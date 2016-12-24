@@ -37,6 +37,7 @@ window.jui.views.file = (function (jsonObject) {
 
             var retval = document.createElement('input');
             retval.type = 'file';
+            retval.className = 'jui__file';
 
             window.jui.registerSubmitElement(name, retval);
 

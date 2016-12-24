@@ -41,6 +41,7 @@ window.jui.views.table = (function (jsonObject) {
         if(!_tools.empty(value) && _tools.isArray(value)) {
 
             var retval = document.createElement('table');
+            retval.className = 'jui__table';
 
             for(var i = 0, x = value.length; i < x; i++) {
                 var tr = document.createElement('tr');

@@ -38,6 +38,7 @@ window.jui.views.checkbox = (function (jsonObject) {
 
             var retval = document.createElement('input');
             retval.type = 'checkbox';
+            retval.className = 'jui__checkbox';
 
             window.jui.registerSubmitElement(name, retval);
 

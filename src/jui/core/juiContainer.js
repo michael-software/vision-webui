@@ -27,6 +27,7 @@ window.jui.views.container = (function (jsonObject) {
         if(!_tools.empty(value) && _tools.isArray(value)) {
 
             var retval = document.createElement('div');
+            retval.className = 'jui__container';
 
 			var el = window.jui.parse(value, true, true);
             

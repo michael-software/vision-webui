@@ -50,6 +50,7 @@ window.jui.views.range = (function (jsonObject) {
 
             var retval = document.createElement('input');
             retval.type = 'range';
+            retval.className = 'jui__range';
 
             window.jui.registerSubmitElement(name, retval);
             

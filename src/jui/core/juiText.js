@@ -61,11 +61,12 @@ window.jui.views.text = (function (jsonObject) {
             bold = true;
             italic = true;
         }
-    }
+    };
 
     _this.getDomElement = function () {
         if(!_tools.empty(value)) {
             var retval = document.createElement('div');
+            retval.className = 'jui__text';
 
             //retval.appendChild( document.createTextNode(value) );
             retval.innerHTML = value;

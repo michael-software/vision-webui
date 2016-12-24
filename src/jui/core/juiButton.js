@@ -42,6 +42,7 @@ window.jui.views.button = (function (jsonObject) {
         if(!_tools.empty(value)) {
             var retval = document.createElement('input');
             retval.type = 'button';
+            retval.className = 'jui__button';
 
             retval.value = value;
 

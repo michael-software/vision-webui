@@ -22,6 +22,7 @@ window.jui.views.image = (function (jsonObject) {
     _this.getDomElement = function () {
         if(!_tools.empty(value)) {
             var retval = document.createElement('img');
+            retval.className = 'jui__image';
 
             retval.src = value;
 

@@ -33,6 +33,7 @@ window.jui.views.frame = (function (jsonObject) {
         if(!_tools.empty(value) || !_tools.empty(zHtml)) {
             var retval = document.createElement('iframe');
             retval.style.border = 'none';
+            retval.className = 'jui__frame';
 
             if(!_tools.empty(value)) {
                 retval.src = value;

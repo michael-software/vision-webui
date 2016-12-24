@@ -68,6 +68,7 @@ window.jui.views.heading = (function (jsonObject) {
             } else {
                 var retval = document.createElement('h2');
             }
+            retval.className = 'jui__headline';
 
             if(shadow != null) {
                 retval.style.textShadow = shadow.x + ' ' + shadow.y + ' ' + shadow.scale + ' ' + shadow.color;
