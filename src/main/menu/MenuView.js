@@ -7,7 +7,7 @@ export default class MenuView {
 	}
 
 	initMenu() {
-		if(!this._menuContainer) {
+		if(!this._menuContainer && !document.querySelector('.menu--container')) {
 			this._menuContainer = document.createElement('div');
 				this._menuContainer.className = 'menu--container';
 			this._menu = document.createElement('div');
@@ -18,6 +18,11 @@ export default class MenuView {
 				this._menu.scrollLeft += event.deltaY;
 			}, false);
 			document.body.appendChild(this._menuContainer);
+		} else if(document.querySelector('.menu--container')) {
+			this._menuContainer = document.querySelector('.menu--container');
+            this._menu = this._menuContainer.querySelector('.menu');
+
+            this._menu.innerHTML = '';
 		}
 	}
 
