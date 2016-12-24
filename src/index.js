@@ -42,6 +42,13 @@ window.ready(function () {
 
             contentView.show();
             console.log(window.user);
+
+            document.addEventListener("keydown", function(e) {
+                if ((e.keyCode == 68 || e.keyCode == 72) && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                    e.preventDefault();
+                    location.hash = '';
+                }
+            }, false);
         });
     } );
 });
