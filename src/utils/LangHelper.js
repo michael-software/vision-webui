@@ -13,13 +13,15 @@ export default class LangHelper {
 		'username': 'Benutzername',
 		'password': 'Kennwort',
 		'login': 'Anmelden',
-		'server': 'Server'
+		'server': 'Server',
+		'search': 'Suchen'
 	};
 
 	static language_en = {
 		'username': 'Username',
 		'password': 'Password',
 		'login': 'Login',
-		'server': 'Server'
+		'server': 'Server',
+        'search': 'Search'
 	};
 }
