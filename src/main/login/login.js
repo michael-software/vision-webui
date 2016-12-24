@@ -1,8 +1,12 @@
 import LoginView from './LoginView';
 
+import CallbackHelper from '../../utils/CallbackHelper';
+
 export default class LoginHelper {
     constructor() {
         this.loginView = new LoginView(this);
+
+        CallbackHelper.register('parseHead', this.parseHead.bind(this), true);
 
         window.socket.on('loginstatus', (data) => {
             if (data.status == 401) {
@@ -21,6 +25,18 @@ export default class LoginHelper {
         } else {
             console.log('test');
             this.showLogin();
+        }
+    }
+
+    parseHead(head) {
+        if ( !window.jui.tools.empty(head['jwt']) ) {
+            this.saveToken(window.user.server, head['jwt']);
+            window.user.token = head['jwt'];
+
+            window.socket.emit('login', {
+                server: localStorage.getItem('server'),
+                bearer: localStorage.getItem('token')
+            });
         }
     }
 

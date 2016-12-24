@@ -29,13 +29,17 @@ window.ready(function () {
         }
 
         let loginHelper = new LoginHelper();
-        let menuView = new MenuView();
         let contentView = new ContentView();
         let searchView = new SearchView(socket);
 
         loginHelper.on('login', (data) => {
             searchView.init();
+
+
+            let menuView = new MenuView();
             menuView.load();
+
+
             contentView.show();
             console.log(window.user);
         });
