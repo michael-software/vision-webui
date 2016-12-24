@@ -25,3 +25,50 @@ ul.jui__list li:hover {
 ul.jui__list li:last-child {
     border: 0;
 }
+
+.jui__button {
+    font-size: 16px;
+
+    color: #333333;
+    background-color: #D0D0D0;
+
+    padding: 5px 10px;
+    margin: 3px;
+
+    border: none;
+    outline: none;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition: background-color .2s;
+}
+
+.jui__button:hover, .jui__button:focus {
+    background-color: #C0C0C0;
+}
+
+
+.jui__input {
+    margin: 10px 0;
+    padding: 5px;
+
+    outline: 0;
+    border: 0;
+    border-bottom: 1px #D0D0D0 solid;
+
+    font-size: 16px;
+
+    transition: border .2s;
+
+    box-sizing: border-box;
+}
+
+.jui__input:hover {
+    border-bottom-color: #B8B8B8;
+}
+
+.jui__input:focus {
+    border-bottom-color: #000000;
+}
