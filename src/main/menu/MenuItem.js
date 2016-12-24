@@ -22,7 +22,7 @@ export default class MenuItem {
 		});
 
 		if(config.icon) {
-			this.setIcon(window.user.server + '/' + config.icon);
+			this.setIcon(config.icon);
 		}
 
 		this.setName(config.name || config.id);
@@ -33,8 +33,19 @@ export default class MenuItem {
 	}
 
 	setIcon(icon) {
-		if(icon)
-			this._itemIcon.style.backgroundImage = `url('${icon}')`;
+		if(icon) {
+			if(icon.startsWith('fa-')) {
+				this._itemIcon.classList.add('menu__item--fa');
+
+				let i = document.createElement('i');
+				i.classList.add('fa');
+				i.classList.add(icon);
+
+				this._itemIcon.appendChild(i);
+			} else {
+                this._itemIcon.style.backgroundImage = `url('${window.user.server}/${icon}')`;
+			}
+        }
 	}
 
 	getNode() {
