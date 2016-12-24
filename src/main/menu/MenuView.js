@@ -1,4 +1,5 @@
 import MenuItem from './MenuItem';
+import MenuUserItem from './MenuUserItem';
 import './MenuView.scss';
 
 export default class MenuView {
@@ -29,6 +30,9 @@ export default class MenuView {
 
 		window.socket.on('plugins', (data) => {
 			this.initMenu();
+
+            let menuItem = new MenuUserItem();
+            this._menu.appendChild(menuItem.getNode());
 
 			data.map((element) => {
 				if(element.id != 'plg_order' && element.id != 'plg_user') {

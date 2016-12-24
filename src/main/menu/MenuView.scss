@@ -60,6 +60,39 @@
     text-align: center;
   }
 
+  &--fa {
+    text-align: center;
+    font-size: 50px;
+
+    .fa {
+      line-height: 60px;
+    }
+  }
+
+
+  &--user {
+    .menu__item--icon {
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 5px;
+      background-color: #FFFFFF;
+      overflow: hidden;
+
+      font-size: 70px;
+
+      transition: box-shadow .2s;
+
+      .fa {
+        line-height: initial;
+      }
+    }
+
+    &:hover .menu__item--icon {
+      box-shadow: 0 0 5px #666666;
+    }
+  }
+
   &:hover {
     background-color: #E8E8E8;
     color: #FF0000;
