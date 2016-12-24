@@ -29,7 +29,6 @@ export default class SearchView {
             this._searchView.className = 'search-view';
             this._searchView.addEventListener('click', function(event) {
                 event.stopPropagation();
-                event.preventDefault();
 
                 return false;
             });
