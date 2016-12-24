@@ -51,7 +51,7 @@ import './overlay.scss';
 			return false;
 		};
 
-		document.addEventListener('keydown', preventEvent, false);
+		document.querySelector('.content').addEventListener('keydown', preventEvent, false);
 
 		if(config) {
 			if(config.color) {
