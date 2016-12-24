@@ -38,33 +38,32 @@ h3 {
 }
 
 
-
-input[type="text"], input[type="password"], input[type="url"], input[type="search"] {
+input[type="text"], input[type="password"], input[type="url"], input[type="search"], .jui__input {
   &:hover {
     border-bottom-color: #B8B8B8;
   }
 
   &:focus {
-    border-bottom-color: #FF0000;
+    border-bottom-color: #FF0000 !important;
   }
 
-  margin: 10px;
-  padding: 5px;
+  &:not(.jui__input) {
+    margin: 10px;
+    padding: 5px;
 
-  outline: 0;
-  border: 0;
-  border-bottom: 1px #D0D0D0 solid;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px #D0D0D0 solid;
 
-  font-size: 16px;
+    font-size: 16px;
 
-  transition: border .2s;
+    transition: border .2s;
 
-  box-sizing: border-box;
+    box-sizing: border-box;
+  }
 }
 
 button, input[type="button"] {
-  padding: 5px 10px;
-  margin: 3px;
   font-size: 16px;
 
   color: #333333;
@@ -83,5 +82,10 @@ button, input[type="button"] {
 
   &:hover, &:focus {
     background-color: #C0C0C0;
+  }
+
+  &:not(.jui__button) {
+    padding: 5px 10px;
+    margin: 3px;
   }
 }
