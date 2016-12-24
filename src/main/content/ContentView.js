@@ -82,6 +82,8 @@ export default class ContentView {
 	parseHead(head) {
 		this._juiHead = head;
 
+		CallbackHelper.call('parseHead', head);
+
 		if (head['bgcolor'] != null) {
 			this._content.style.backgroundColor = head['bgcolor'];
 		}
