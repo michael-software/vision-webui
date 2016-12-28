@@ -1,4 +1,5 @@
 import CallbackHelper from '../../utils/CallbackHelper';
+import SocketHelper from '../../utils/SocketHelper';
 
 import '../../jui/custom/AutoInput';
 import '../../jui/custom/ButtonList';
@@ -24,6 +25,8 @@ export default class ContentView {
 		// CallbackHelper.register('popstate', (data) => {
 		// 	this.parseState(data);
 		// }, true);
+
+		CallbackHelper.register('reloadContent', this.reloadContent.bind(this));
 
 		window.addEventListener('hashchange', () => {
 			this.hashChanged(this.getHash());
@@ -167,5 +170,9 @@ export default class ContentView {
 			view: view,
 			param: param
 		});
+	}
+
+    reloadContent() {
+        this.hashChanged(this.getHash());
 	}
 }
