@@ -47,7 +47,7 @@ window.jui = {};
 		} else {
 			return Array.isArray(obj);
 		}
-	}
+	};
 
 	tools.inArray = function (needle, haystack) {
 		if(!tools.isArray(haystack)) {
@@ -59,36 +59,36 @@ window.jui = {};
 		}
 
 		return false;
-	}
+	};
 
 	tools.isInteger = function(value) {
 		return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
-	}
+	};
 
 	tools.isNumeric = function(value) {
 		return tools.isInteger(value) || parseInt(value) != null;
-	}
+	};
 
 	tools.isString = function(obj) {
 		return typeof obj === 'string' || obj instanceof String;
-	}
+	};
 
 	tools.isBoolean = function(obj) {
 		return typeof obj === 'boolean' || 
           (typeof obj === 'object' && typeof obj.valueOf() === 'boolean');  // Thanks to: http://stackoverflow.com/questions/28814585/how-to-check-if-type-is-boolean
-	}
+	};
 
 	tools.getDaysInMonth = function(year, month) {
 		return [31, (tools.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
-	}
+	};
 
 	tools.isLeapYear = function(year) {
 		return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
-	}
+	};
 
 	tools.getMonthName = function(month) {
 		return window.jui.lang.get('month_names')[month];
-	}
+	};
 
 	tools.parseJSON = function(data) {
 		try {
@@ -98,7 +98,7 @@ window.jui = {};
 
 			return null;
 		}
-	}
+	};
 
 	tools.parseJuiJSON = function(data) {
 		if(data == '') {
@@ -125,7 +125,7 @@ window.jui = {};
 				}
 			];
 		}
-	}
+	};
 
 	tools.requestSite = function(url, postData, headers, callback) {
 		var xhr = new XMLHttpRequest();
@@ -163,7 +163,7 @@ window.jui = {};
 		} else {
 			xhr.send();
 		}
-	}
+	};
 
 	tools.convertHex = function (hex){
 		var length = hex.length;
@@ -185,7 +185,7 @@ window.jui = {};
 		}
 
 		return '#000000';
-	}
+	};
 
 	tools.getTextWidth = function(element, text, font, fontSize, fontWeight) {
 		if(textWidthElement == null) {
@@ -213,5 +213,36 @@ window.jui = {};
 
 			return $.fn.textWidth.fakeEl.width();
 		};*/
-	}
+	};
+
+	tools.objToFormData = function(obj) {
+		var formData = new FormData();
+
+		for(var key in obj) {
+			if(obj.hasOwnProperty(key)) formData.append(key, obj);
+		}
+
+		return formData;
+	};
+
+
+	var randomNumbers = {};
+
+	tools.getUniqueId = function(name, digits) {
+		if(!randomNumbers[name]) randomNumbers[name] = [];
+		if(!digits || digits < 1) digits = 16;
+		var max = Math.pow(10, digits);
+
+
+        if(randomNumbers[name].length >= max) return false;
+
+		var random = Math.round( Math.random() * max );
+
+		if(randomNumbers[name].indexOf(random) === -1) {
+            randomNumbers[name].push(random);
+			return random;
+		} else {
+			return tools.getUniqueId(name, digits);
+		}
+	};
 })(window.jui.tools = {}, window);

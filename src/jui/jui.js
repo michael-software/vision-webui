@@ -1,6 +1,6 @@
 (function (jui, _tools) {
 	var root = document.querySelector('body');
-	var parseHeadCallback = null, submitCallback = null;
+	var parseHeadCallback = null, submitCallback = null, postCallback = null;
 	var customSingleLineElements = [], customElements = [];
 
 	var lastLoaded = window.location.href;
@@ -39,8 +39,9 @@
 			jsonObject = _tools.parseJuiJSON(jsonObject);
 		}
 
+        var returnedBool = false;
 		if(!_tools.empty(beforeParseCallback) && _tools.isFunction(beforeParseCallback)) {
-			var returnedBool = beforeParseCallback(jsonObject, parentElement);
+			returnedBool = beforeParseCallback(jsonObject, parentElement);
 		}
 		
 		if(!_tools.isBoolean(returnedBool) || returnedBool) {
@@ -52,8 +53,6 @@
 			} else {
 				var data = jsonObject;
 			}
-
-			console.log(data);
 
 			var fragment = document.createDocumentFragment();
 
@@ -79,6 +78,7 @@
 				}
 			}
 
+
 			if(parentElement === true) {
 				return fragment;
 			} else if(!_tools.empty(parentElement)) {
@@ -88,7 +88,19 @@
 				root.appendChild(fragment);
 			}
 		}
-	}
+	};
+
+	jui.addEventListener = function(type, callback) {
+        if(!_tools.empty(callback) && _tools.isFunction(callback)) {
+            switch(type) {
+				case 'submit':
+					postCallback = callback;
+					break;
+
+				default: break;
+            }
+        }
+	};
 
 	jui.setHeadCallback = function(callback) {
 		if(!_tools.empty(callback) && _tools.isFunction(callback)) {
@@ -268,7 +280,7 @@
 	};
 
 	jui.submit = function(url) {
-		var formData = new FormData();
+		var data = {};
 
 		for(var i = 0, x = sendElements.length; i < x; i++) {
 
@@ -280,7 +292,7 @@
 				var result = element(jui);
 
 				if(result !== undefined && result !== null) {
-					formData.append(name, result);
+                    data[name] = result;
 				}
 			} else if(tagName && tagName.toLowerCase() == "input" &&
 					(element.type.toLowerCase() == "text" ||
@@ -292,43 +304,53 @@
 
 
 					if(!_tools.empty(element.value)) {
-						formData.append(name, element.value);
+                        data[name] = element.value;
 					}
 			} else if(tagName && tagName.toLowerCase() == "select") {
 				if( !_tools.empty(element.options) && !_tools.empty(element.options[element.selectedIndex]) && !_tools.empty(element.options[element.selectedIndex].value) )
-					formData.append(name, element.options[element.selectedIndex].value);
+                    data[name] = element.options[element.selectedIndex].value;
 			} else if(tagName && tagName.toLowerCase() == "input" &&
 				element.type.toLowerCase() == "checkbox") {
 
-				if(element.checked) formData.append(name, 1);
+				if(element.checked)  data[name] = 1;
 			} else if(tagName && tagName.toLowerCase() == "input" &&
 				element.type.toLowerCase() == "file") {
 
-				for(var j = 0, k = element.files.length; j < k; j++) {
-					formData.append(name + '[]', element.files[j]);
-				}
+                data[name + '[]'] = element.files;
+				// for(var j = 0, k = element.files.length; j < k; j++) {
+				// 	console.log(element.files[0].name);
+                 //    ; /* TODO: formData converts file to ArrayBuffer */
+				// }
 			} else if(tagName && tagName.toLowerCase() == "textarea") {
 				if(!_tools.empty(element.value)) {
-					formData.append(name, element.value);
+                    data[name] = element.value;
 				}
 			} else if(element.classList.contains('dateButton') && element.dataset != undefined) {
-				formData.append(name, element.dataset.value || '0');
+                data[name] = element.dataset.value || '0';
 			} else {
 				if(!_tools.empty(submitCallback)) {
-					submitCallback(formData, name, element);
+					submitCallback(data, name, element);
 				}
 			}
 
 		}
 
-		window.jui.tools.requestSite(lastLoaded, formData, headers, function(content, status) {
-			if(status === 200) {
-				content = JSON.parse(content);
-				window.jui.parse(content);
+		if(postCallback) {
+			var send = postCallback(data);
+		}
 
-				if(!_tools.empty(url))
-					lastLoaded = url;
-			}
-		});
+		if(send !== false) {
+			var formData = window.jui.tools.objToFormData(data);
+
+            window.jui.tools.requestSite(lastLoaded, formData, headers, function (content, status) {
+                if (status === 200) {
+                    content = JSON.parse(content);
+                    window.jui.parse(content);
+
+                    if (!_tools.empty(url))
+                        lastLoaded = url;
+                }
+            });
+        }
 	};
 })(window.jui, window.jui.tools);

@@ -7,6 +7,10 @@ import CallbackHelper from './utils/CallbackHelper';
 		if(view) hash += '/' + view;
 		if(param) hash += '/' + param;
 
+        if(location.hash == `#${hash}`) {
+			CallbackHelper.call('reloadContent');
+        }
+
 		if(noHistory) {
 			window.location.replace('#' + hash);
 		} else {

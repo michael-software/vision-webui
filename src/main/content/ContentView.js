@@ -1,4 +1,5 @@
 import CallbackHelper from '../../utils/CallbackHelper';
+import SocketHelper from '../../utils/SocketHelper';
 
 import '../../jui/custom/AutoInput';
 import '../../jui/custom/ButtonList';
@@ -25,6 +26,8 @@ export default class ContentView {
 		// 	this.parseState(data);
 		// }, true);
 
+		CallbackHelper.register('reloadContent', this.reloadContent.bind(this));
+
 		window.addEventListener('hashchange', () => {
 			this.hashChanged(this.getHash());
 		});
@@ -43,7 +46,7 @@ export default class ContentView {
 		window.jui.setSubmitCallback(function(formData, name, element) {
 			if(element.classList.contains('editor') && element.querySelector('.html') != null) {
 				if(!window.jui.tools.empty(element.querySelector('.html').innerHTML)) {
-					formData.append(name, element.querySelector('.html').innerHTML);
+					formData[name] = element.querySelector('.html').innerHTML;
 				}
 			}
 		});
@@ -60,7 +63,51 @@ export default class ContentView {
 			}
 		});
 
+		window.jui.addEventListener('submit', this.postCallback.bind(this));
+
 		window.socket.on('plugin', this.parse.bind(this));
+	}
+
+    postCallback(formObj) {
+		let array = {};
+
+		console.log(formObj);
+
+		for(let key in formObj) {
+			if(!formObj.hasOwnProperty(key)) continue;
+
+			let value = formObj[key];
+
+			if(value instanceof FileList) {
+				let fileValue = {type: 'filelist'};
+
+				for(let i = 0, z = value.length; i < z; i++) {
+					let fileId = null;
+
+                    fileId = SocketHelper.uploadFile(window.socket, value[i]);
+
+                    if(fileId !== null) {
+                        fileValue[i] = fileId;
+                    }
+				}
+
+				value = fileValue;
+			}
+
+            array[key] = value;
+		}
+
+
+        window.loadingIndicator.show('plugin');
+
+        window.socket.emit('plugin', {
+            name: this.plugin,
+            view: this.view,
+            param: this.param,
+			formData: array
+        });
+
+		return false;
 	}
 
 	_beforeParse(result, parent) {
@@ -77,6 +124,9 @@ export default class ContentView {
 
 			return false;
 		}
+
+        clearTimeout(this._timeout);
+        window.loadingIndicator.hide('plugin');
 	}
 
 	parseHead(head) {
@@ -98,12 +148,7 @@ export default class ContentView {
 	}
 
 	parse(data) {
-		console.log('data', data.request, data.response);
-		this._content.innerHTML = '';
 		window.jui.parse(data.response, null, true);
-
-		clearTimeout(this._timeout);
-		window.loadingIndicator.hide('plugin');
 	}
 
 	show() {
@@ -126,18 +171,26 @@ export default class ContentView {
 		let pluginId = 'Home';
 
 		if(pHash == '') {
+            this.plugin = null;
+            this.view = null;
+            this.param = null;
+
 			this.openHome();
 		} else if(hash.length < 3) {
-			this.loadPlugin(hash[0], hash[1]);
+            this.plugin = hash[0];
+            this.view = hash[1];
+            this.param = null;
+
+			this.loadPlugin(this.plugin, this.view);
 		} else {
-			let plugin = hash[0];
-			let view = hash[1];
+			this.plugin = hash[0];
+			this.view = hash[1];
 
 			hash.splice(0,2);
 
-			let urlParam = hash.join('/');
+            this.param = hash.join('/');
 
-			this.loadPlugin(plugin, view, urlParam);
+			this.loadPlugin(this.plugin, this.view, this.param);
 		}
 	}
 
@@ -167,5 +220,9 @@ export default class ContentView {
 			view: view,
 			param: param
 		});
+	}
+
+    reloadContent() {
+        this.hashChanged(this.getHash());
 	}
 }
