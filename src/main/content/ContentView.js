@@ -63,7 +63,51 @@ export default class ContentView {
 			}
 		});
 
+		window.jui.addEventListener('submit', this.postCallback.bind(this));
+
 		window.socket.on('plugin', this.parse.bind(this));
+	}
+
+    postCallback(formObj) {
+		let array = {};
+
+		console.log(formObj);
+
+		for(let key in formObj) {
+			if(!formObj.hasOwnProperty(key)) continue;
+
+			let value = formObj[key];
+
+			if(value instanceof FileList) {
+				let fileValue = {type: 'filelist'};
+
+				for(let i = 0, z = value.length; i < z; i++) {
+					let fileId = null;
+
+                    fileId = SocketHelper.uploadFile(window.socket, value[i]);
+
+                    if(fileId !== null) {
+                        fileValue[i] = fileId;
+                    }
+				}
+
+				value = fileValue;
+			}
+
+            array[key] = value;
+		}
+
+
+        window.loadingIndicator.show('plugin');
+
+        window.socket.emit('plugin', {
+            name: this.plugin,
+            view: this.view,
+            param: this.param,
+			formData: array
+        });
+
+		return false;
 	}
 
 	_beforeParse(result, parent) {
