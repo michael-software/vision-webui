@@ -225,4 +225,24 @@ window.jui = {};
 		return formData;
 	};
 
+
+	var randomNumbers = {};
+
+	tools.getUniqueId = function(name, digits) {
+		if(!randomNumbers[name]) randomNumbers[name] = [];
+		if(!digits || digits < 1) digits = 16;
+		var max = Math.pow(10, digits);
+
+
+        if(randomNumbers[name].length >= max) return false;
+
+		var random = Math.round( Math.random() * max );
+
+		if(randomNumbers[name].indexOf(random) === -1) {
+            randomNumbers[name].push(random);
+			return random;
+		} else {
+			return tools.getUniqueId(name, digits);
+		}
+	};
 })(window.jui.tools = {}, window);
