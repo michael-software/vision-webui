@@ -46,7 +46,7 @@ export default class ContentView {
 		window.jui.setSubmitCallback(function(formData, name, element) {
 			if(element.classList.contains('editor') && element.querySelector('.html') != null) {
 				if(!window.jui.tools.empty(element.querySelector('.html').innerHTML)) {
-					formData.append(name, element.querySelector('.html').innerHTML);
+					formData[name] = element.querySelector('.html').innerHTML;
 				}
 			}
 		});
@@ -124,6 +124,9 @@ export default class ContentView {
 
 			return false;
 		}
+
+        clearTimeout(this._timeout);
+        window.loadingIndicator.hide('plugin');
 	}
 
 	parseHead(head) {
@@ -145,12 +148,7 @@ export default class ContentView {
 	}
 
 	parse(data) {
-		console.log('data', data.request, data.response);
-		this._content.innerHTML = '';
 		window.jui.parse(data.response, null, true);
-
-		clearTimeout(this._timeout);
-		window.loadingIndicator.hide('plugin');
 	}
 
 	show() {
