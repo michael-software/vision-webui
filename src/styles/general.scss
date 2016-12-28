@@ -89,3 +89,97 @@ button, input[type="button"] {
     margin: 3px;
   }
 }
+
+
+
+
+
+$track-color: #FF0000;
+$track-color-highlight: #FF0000;
+$thumb-size: 25px;
+$thumb-inner-color: rgba(255, 0, 0, 0.8);
+$thumb-outer-color: rgba(255, 255, 255, 0.4);
+$thumb-outer-color-highlight: rgba(255, 255, 255, 0.3);
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: $track-color;
+  border-radius: 2px;
+}
+input[type=range]::-webkit-slider-thumb {
+  border: 7px solid $thumb-outer-color;
+  height: $thumb-size;
+  width: $thumb-size;
+  border-radius: 100%;
+  background: $thumb-inner-color;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -$thumb-size/2.42;
+}
+input[type=range]::-webkit-slider-thumb:hover,
+input[type=range]::-moz-range-thumb:hover {
+  border: 7px solid $thumb-outer-color-highlight;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: $track-color-highlight;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: $track-color;
+  border-radius: 2px;
+}
+input[type=range]::-moz-range-thumb {
+  border: 7px solid $thumb-outer-color;
+  height: $thumb-size/2;
+  width: $thumb-size/2;
+  border-radius: 100%;
+  background: $thumb-inner-color;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  border-radius: 2px;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: $track-color-highlight;
+  border-radius: 2px;
+}
+input[type=range]::-ms-fill-upper {
+  background: $track-color;
+  border-radius: 2px;
+}
+input[type=range]::-ms-thumb {
+  height: $thumb-size/2;
+  width: $thumb-size/2;
+  margin-top: 0;
+  border-radius: 100%;
+  background: $thumb-inner-color;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: $track-color;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: $track-color-highlight;
+}
