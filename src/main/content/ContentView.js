@@ -129,18 +129,26 @@ export default class ContentView {
 		let pluginId = 'Home';
 
 		if(pHash == '') {
+            this.plugin = null;
+            this.view = null;
+            this.param = null;
+
 			this.openHome();
 		} else if(hash.length < 3) {
-			this.loadPlugin(hash[0], hash[1]);
+            this.plugin = hash[0];
+            this.view = hash[1];
+            this.param = null;
+
+			this.loadPlugin(this.plugin, this.view);
 		} else {
-			let plugin = hash[0];
-			let view = hash[1];
+			this.plugin = hash[0];
+			this.view = hash[1];
 
 			hash.splice(0,2);
 
-			let urlParam = hash.join('/');
+            this.param = hash.join('/');
 
-			this.loadPlugin(plugin, view, urlParam);
+			this.loadPlugin(this.plugin, this.view, this.param);
 		}
 	}
 
