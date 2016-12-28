@@ -214,4 +214,15 @@ window.jui = {};
 			return $.fn.textWidth.fakeEl.width();
 		};*/
 	};
+
+	tools.objToFormData = function(obj) {
+		var formData = new FormData();
+
+		for(var key in obj) {
+			if(obj.hasOwnProperty(key)) formData.append(key, obj);
+		}
+
+		return formData;
+	};
+
 })(window.jui.tools = {}, window);
