@@ -38,7 +38,6 @@ import './overlay.scss';
 
 		clearTimeout(_overlayClose);
 		_overlay.style.display = 'block';
-        _overlayContent.style.display = 'block';
 
 		_overlay.onclick = _overlayContent.onclick = function(event) {
 			event.stopPropagation();
@@ -63,8 +62,14 @@ import './overlay.scss';
 			}
 		}
 
+
+
+		if(config.content) {
+            _overlayContent.style.display = 'block';
+            _overlayContent.classList.remove('overlay__content--hide');
+		}
+
 		_overlay.classList.remove('overlay--hide');
-        _overlayContent.classList.remove('overlay__content--hide');
 	};
 
 	overlay.hide = () => {
