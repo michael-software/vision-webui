@@ -22,7 +22,18 @@ import './main/actions/music.js';
 		//window.history.pushState({plugin: name}, name, url);
 		//CallbackHelper.call('popstate', {plugin: name})
 	};
-})(window.actions = {});    actions.downloadFile = (value) => {
+    actions.openMedia = (type, value) => {
+		if(type == "image") {
+            actions.openImage(value);
+		} else if(type == "text" || type == "html") {
+            actions.openText(type, value);
+        } else if(type == "music") {
+            actions.openMusic(value);
+        } else {
+            actions.downloadFile(value);
+        }
+    };
+
     actions.openMusic = (value) => {
         let ui = window.ui.audioPlayer.getUi();
         ui.onclick = function(event) {
@@ -116,3 +127,4 @@ import './main/actions/music.js';
 
         xhr.send();
     }
+})(window.actions = window.actions || {});

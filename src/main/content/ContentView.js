@@ -54,6 +54,7 @@ export default class ContentView {
 		window.jui.setHeadCallback(this.parseHead.bind(this));
 
 		window.jui.action.addAction('openPlugin', window.actions.openPlugin);
+        window.jui.action.addAction('openMedia', window.actions.openMedia);
 		window.jui.action.addAction('openGallery', (gallery, index) => {
 			var header = this._juiHead;
 
