@@ -3,6 +3,7 @@ import MenuView from './main/menu/MenuView';
 import ContentView from './main/content/ContentView';
 import SearchView from './main/search/SearchView';
 
+import './dimension';
 
 import './jui/juiLoader';
 import './actions';
