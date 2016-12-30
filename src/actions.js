@@ -1,4 +1,5 @@
 import CallbackHelper from './utils/CallbackHelper';
+import './main/actions/text.js';
 
 (function(actions) {
 	actions.openPlugin = (name, view, param, noHistory) => {
