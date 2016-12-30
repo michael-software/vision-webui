@@ -1,0 +1,36 @@
+@import './mixins.scss';
+
+@mixin menu($color, $bgcolor) {
+  $text-color-highlight: calculateContrast($color, 5%);
+  $menu-background: calculateContrast($bgcolor, 25%);
+  $menu-background-highlight: calculateContrast($bgcolor, 12%);
+
+  .menu--container {
+    background-color: $menu-background;
+    //background-color: #D0D0D0;
+  }
+
+  .menu__item {
+    &--user {
+      .menu__item--icon {
+        background-color: #FFFFFF;
+      }
+
+      &:hover .menu__item--icon {
+        box-shadow: 0 0 5px #666666;
+      }
+    }
+
+    .menu__item--name, .menu__item--icon {
+      color: contrast($menu-background);
+    }
+
+    &:hover {
+      background-color: $menu-background-highlight;
+
+      .menu__item--name, .menu__item--icon {
+        color: $text-color-highlight !important;
+      }
+    }
+  }
+}
