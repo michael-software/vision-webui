@@ -22,6 +22,21 @@ import './main/actions/music.js';
 		//window.history.pushState({plugin: name}, name, url);
 		//CallbackHelper.call('popstate', {plugin: name})
 	};
+
+	/* Async */
+    actions.sendAction = (pPlugin, pAction, pValue) => {
+        console.log('test');
+
+        let object = {
+            plugin: pPlugin,
+            action: pAction,
+            value: pValue
+        };
+
+
+        window.socket.emit('async', object);
+    };
+
     actions.openMedia = (type, value) => {
 		if(type == "image") {
             actions.openImage(value);
