@@ -39,6 +39,27 @@ import './main/actions/music.js';
             centerContent: true
         })
     };
+
+    actions.openImage = (value) => {
+        let imageBox = document.createElement('div');
+        	imageBox.className = 'image-box';
+
+        let image = document.createElement('img');
+			image.src = window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token);
+			image.style.maxWidth = '100%';
+			image.style.maxHeight = '100%';
+
+        imageBox.appendChild(image);
+
+        window.overlay.show(function() {
+			window.overlay.hide();
+		}, {
+			content: imageBox,
+			centerContent: true
+		});
+	};
+
+    actions.downloadFile = (value) => {
         let xhr = new XMLHttpRequest();
 
         xhr.addEventListener("readystatechange", function () {
