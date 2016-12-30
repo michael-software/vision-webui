@@ -1,3 +1,13 @@
+@media screen and (max-height: 200px) {
+  .menu--container {
+    display: none !important;
+  }
+
+  .content {
+    bottom: 0 !important;
+  }
+}
+
 .menu--container {
   position: fixed;
 
