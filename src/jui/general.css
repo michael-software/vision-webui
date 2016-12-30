@@ -49,6 +49,13 @@ ul.jui__list li:last-child {
     background-color: #C0C0C0;
 }
 
+.jui__color {
+    width: 200px;
+    height: 25px;
+
+    position: relative;
+    top: -5px;
+}
 
 .jui__input {
     margin: 10px 0;
