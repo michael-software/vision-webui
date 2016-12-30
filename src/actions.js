@@ -1,5 +1,6 @@
 import CallbackHelper from './utils/CallbackHelper';
 import './main/actions/text.js';
+import './main/actions/music.js';
 
 (function(actions) {
 	actions.openPlugin = (name, view, param, noHistory) => {
@@ -22,6 +23,22 @@ import './main/actions/text.js';
 		//CallbackHelper.call('popstate', {plugin: name})
 	};
 })(window.actions = {});    actions.downloadFile = (value) => {
+    actions.openMusic = (value) => {
+        let ui = window.ui.audioPlayer.getUi();
+        ui.onclick = function(event) {
+            event.stopPropagation();
+        };
+
+        window.ui.audioPlayer.start( window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
+
+        window.overlay.show(() => {
+            window.overlay.hide();
+            window.ui.audioPlayer.pause();
+        }, {
+            content: ui,
+            centerContent: true
+        })
+    };
         let xhr = new XMLHttpRequest();
 
         xhr.addEventListener("readystatechange", function () {
