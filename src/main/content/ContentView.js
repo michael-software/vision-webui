@@ -59,7 +59,7 @@ export default class ContentView {
             window.actions.sendAction(this.plugin, action, value);
 		});
 		window.jui.action.addAction('openGallery', (gallery, index) => {
-			var header = this._juiHead;
+			let header = this._juiHead;
 
 			if(gallery && header && header[gallery]) {
 				console.log('openGallery', header[gallery]);
@@ -152,6 +152,8 @@ export default class ContentView {
 	}
 
 	parse(data) {
+		if(document.querySelector('.editor-frame')) document.querySelector('.editor-frame').style.display = 'none';
+
 		window.jui.parse(data.response, null, true);
 	}
 
