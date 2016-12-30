@@ -1,0 +1,27 @@
+@import './mixins.scss';
+
+@mixin inputs($color, $bgcolor) {
+  $border-color: calculateContrast($bgcolor, 23%);
+  $border-color-highlight: calculateContrast($bgcolor, 50%);
+
+  input[type="text"], input[type="password"], input[type="url"], input[type="search"], .jui__input {
+    &:hover {
+      border-bottom-color: $border-color-highlight;
+    }
+
+    &:focus {
+      border-bottom-color: $color !important;
+    }
+
+    border-bottom: 1px $border-color solid;
+  }
+
+  button, input[type="button"] {
+    color: contrast($border-color);
+    background-color: $border-color;
+
+    &:hover, &:focus {
+      background-color: $border-color-highlight;
+    }
+  }
+}
