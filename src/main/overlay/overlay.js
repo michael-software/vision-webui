@@ -27,6 +27,10 @@ import './overlay.scss';
 	overlay.show = (callback, config) => {
 		init();
 
+		_overlayContent.classList.remove('overlay__content--center');
+		_overlay.style.backgroundColor = null;
+		_overlay.style.opacity = null;
+
 		if(config.content) {
 			_overlayContent.innerHTML = '';
             _overlayContent.appendChild(config.content);
