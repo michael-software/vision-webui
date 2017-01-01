@@ -15,11 +15,13 @@ window.ui = window.ui || {};
     let updateTime = true;
     let durationString = '';
     let currentTimeString = '0:00';
+    let started = false;
 
     audioPlayer.init = function() {
         if(!audioContainer) {
             audioContainer = document.createElement('div');
             audioContainer.className = 'audio--container';
+            audioContainer.style.display = 'none';
         }
 
         if(!audioControls) {
@@ -198,6 +200,7 @@ window.ui = window.ui || {};
     audioPlayer.start = function(url) {
         audioPlayer.init();
 
+		audioContainer.style.display = 'block';
         currentTimeString = '0:00';
         audioRange.value = 0;
         audioElement.src = url;
