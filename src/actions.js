@@ -59,7 +59,6 @@ import './main/actions/music.js';
 
         window.overlay.show(() => {
             window.overlay.hide();
-            window.ui.audioPlayer.pause();
         }, {
             content: ui,
             centerContent: true
