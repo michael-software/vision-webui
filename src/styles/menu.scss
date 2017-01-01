@@ -11,9 +11,15 @@
   }
 
   .menu__item {
-    &--user {
+    &--more {
+      background-color: $menu-background;
+
       .menu__item--icon {
-        background-color: #FFFFFF;
+        background-color: $color;
+
+        .fa {
+          color: contrast($color);
+        }
       }
 
       &:hover .menu__item--icon {

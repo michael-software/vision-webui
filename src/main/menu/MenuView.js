@@ -1,5 +1,5 @@
 import MenuItem from './MenuItem';
-import MenuUserItem from './MenuUserItem';
+import MenuUserItem from './MenuMoreItem';
 import './MenuView.scss';
 
 export default class MenuView {
@@ -43,7 +43,6 @@ export default class MenuView {
 				if(element.id != 'plg_order' && element.id != 'plg_user') {
 					let menuItem = new MenuItem(element);
 					this._menu.appendChild(menuItem.getNode());
-				} else {
 				}
 			})
 		});
