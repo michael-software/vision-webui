@@ -17,9 +17,18 @@ export default class MenuItem {
 			return;
 		}
 
-		this._item.addEventListener('click', () => {
-			window.actions.openPlugin(config.id);
-		});
+		if(!config.onclick) {
+            this._item.addEventListener('click', () => {
+                window.actions.openPlugin(config.id);
+            });
+		} else {
+            this._item.addEventListener('click', (event) => {
+            	let trigger = config.onclick(event);
+
+            	if(trigger !== false)
+                	window.actions.openPlugin(config.id);
+            });
+		}
 
 		if(config.icon) {
 			this.setIcon(config.icon);
