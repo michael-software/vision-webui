@@ -22,6 +22,14 @@ import './overlay.scss';
                 document.body.appendChild(_overlayContent);
 			}
 		}
+
+		window.addEventListener('keydown', function(e) {
+			if (e.keyCode == 27) {
+				e.preventDefault();
+
+				overlay.hide();
+			}
+		});
 	};
 
 	overlay.show = (callback, config) => {
