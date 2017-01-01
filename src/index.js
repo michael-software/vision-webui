@@ -49,6 +49,12 @@ window.ready(function () {
                     e.preventDefault();
                     location.hash = '';
                 }
+
+				if ((e.keyCode == 69) && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+					e.preventDefault();
+
+					window.ui.floatingMenu.show();
+				}
             }, false);
         });
     } );
