@@ -37,6 +37,8 @@
   overflow-y: hidden;
   overflow-x: scroll;
 
+  padding-left: 90px;
+
   user-select: none;
 }
 
@@ -80,21 +82,30 @@
   }
 
 
-  &--user {
+  &--more {
+    position: fixed;
+    bottom: -1px;
+    left: 0;
+
     .menu__item--icon {
       border-radius: 100%;
-      width: 55px;
-      height: 55px;
+      width: 56px;
+      height: 56px;
       margin: 0 auto 5px;
       background-color: #FFFFFF;
       overflow: hidden;
 
-      font-size: 70px;
+      font-size: 50px;
 
       transition: box-shadow .2s;
 
+      box-shadow: 0 0 10px #666666;
+
       .fa {
-        line-height: initial;
+        text-shadow: 0 0 5px #A8A8A8;
+        line-height: 60px;
+        text-align: center;
+        width: 100%;
       }
     }
 
