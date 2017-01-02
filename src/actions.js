@@ -1,6 +1,7 @@
 import CallbackHelper from './utils/CallbackHelper';
 import './main/actions/text.js';
 import './main/actions/music.js';
+import './main/actions/video.js';
 
 (function(actions) {
 	actions.openPlugin = (name, view, param, noHistory) => {
@@ -44,7 +45,9 @@ import './main/actions/music.js';
             actions.openText(type, value);
         } else if(type == "music") {
             actions.openMusic(value);
-        } else {
+        } else if(type == "video") {
+			actions.openVideo(value);
+		} else {
             actions.downloadFile(value);
         }
     };
@@ -69,6 +72,28 @@ import './main/actions/music.js';
             centerContent: true
         })
     };
+
+	actions.openVideo = (value) => {
+		let ui = window.ui.videoPlayer.getUi();
+		ui.addEventListener('click', function(event) {
+			event.stopPropagation();
+		}, false);
+
+		window.ui.videoPlayer.start( window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
+		window.ui.videoPlayer.onEnded(function() {
+			window.overlay.hide();
+		});
+
+		window.overlay.show(() => {
+			window.ui.videoPlayer.stop();
+			window.overlay.hide();
+		}, {
+			content: ui,
+			centerContent: true,
+			color: '#000000',
+			opacity: 1
+		})
+	};
 
     actions.openImage = (value) => {
         let imageBox = document.createElement('div');

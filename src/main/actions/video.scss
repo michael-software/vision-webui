@@ -1,0 +1,97 @@
+.video--container {
+  position: relative;
+
+  height: 100%;
+  width: 100%;
+
+  .video--controls {
+    display: flex;
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    padding: 10px 30px 10px 30px;
+
+    box-sizing: border-box;
+
+    align-items: center;
+
+    transition: transform .5s;
+
+
+    .video--range {
+      flex-grow: 1;
+    }
+
+    .video--play {
+      margin-right: 20px;
+
+      cursor: pointer;
+
+      font-size: 45px;
+    }
+
+    .video--time {
+      margin-left: 20px;
+
+      font-size: 25px;
+    }
+  }
+
+  .video--player{
+    position: relative;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 100%;
+
+    margin: 0 auto;
+  }
+
+  .video--close {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    padding: 0 5px 5px 5px;
+
+    cursor: pointer;
+
+    color: #FFFFFF;
+    font-size: 40px;
+
+    transition: transform .3s;
+  }
+}
+
+
+@media screen and (min-width: 500px) {
+  .video--container {
+    &.controls--hidden {
+      .video--controls {
+        transform: translateY(100%);
+      }
+
+      .video--close {
+        transform: translateY(-100%);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .video--container {
+    .video--controls {
+      padding: 5px 15px 5px 15px;
+
+      .video--time {
+        display: none;
+      }
+    }
+  }
+}
