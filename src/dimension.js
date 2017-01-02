@@ -1,4 +1,6 @@
 (function(dimension) {
+    var resizeListener = [];
+
     dimension.getMenu = function(position) {
         switch(position) {
             case 'bottom':
@@ -9,12 +11,26 @@
     };
 
     function init() {
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function (event) {
             proofMobile();
+
+            for(var i = 0, z = resizeListener.length; i < z; i++) {
+				resizeListener[i](event);
+            }
         });
 
         proofMobile();
     }
+
+	dimension.onResize = function(callback) {
+        if(window.jui.tools.isFunction(callback)) {
+			resizeListener.push(callback);
+
+            return true;
+        }
+
+        return false;
+    };
 
     function proofMobile() {
         let width = window.innerWidth;
