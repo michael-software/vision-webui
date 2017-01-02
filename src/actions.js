@@ -57,8 +57,13 @@ import './main/actions/music.js';
 
         window.ui.audioPlayer.start( window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
 
+		window.ui.audioPlayer.onEnded(function() {
+			window.overlay.hide();
+		});
+
         window.overlay.show(() => {
             window.overlay.hide();
+			window.ui.audioPlayer.onEnded(null);
         }, {
             content: ui,
             centerContent: true

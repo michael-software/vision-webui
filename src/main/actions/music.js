@@ -16,6 +16,7 @@ window.ui = window.ui || {};
     let durationString = '';
     let currentTimeString = '0:00';
     let started = false;
+    let onEndedListener = null;
 
     audioPlayer.init = function() {
         if(!audioContainer) {
@@ -46,6 +47,7 @@ window.ui = window.ui || {};
 
             audioElement.ontimeupdate = updateRange;
             audioElement.onloadedmetadata = updateDuration;
+            audioElement.onended = audioPlayer.stop;
         }
 
         if(!audioPlay) {
@@ -230,6 +232,13 @@ window.ui = window.ui || {};
         audioPlay.classList.remove('fa-pause');
     };
 
+	audioPlayer.stop = function() {
+		audioPlayer.pause();
+
+		if(onEndedListener) onEndedListener();
+		onEndedListener = null;
+	};
+
     audioPlayer.setCurrentTime = function(value) {
         if(value && Math.floor(value) < audioElement.duration) {
             audioElement.currentTime = Math.floor(value);
@@ -245,4 +254,14 @@ window.ui = window.ui || {};
     audioPlayer.setTitle = function(title) {
         audioTitle.innerHTML = title;
     };
+
+	audioPlayer.onEnded = function(callback) {
+		if(callback && window.jui.tools.isFunction(callback)) {
+			onEndedListener = callback;
+		}
+
+		if(callback === null) {
+			onEndedListener = null;
+		}
+	};
 })(window.ui.audioPlayer = window.ui.audioPlayer || {});
