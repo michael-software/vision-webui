@@ -5,6 +5,7 @@ import './overlay.scss';
 	let _overlay = null;
 	let _overlayContent = null;
 	let _overlayClose = null;
+	let $callback = null;
 
 	let init = () => {
 		if(!_overlay) {
@@ -27,13 +28,17 @@ import './overlay.scss';
 			if (e.keyCode == 27) {
 				e.preventDefault();
 
-				overlay.hide();
+				if($callback && $callback.call) {
+					$callback.call(e);
+				}
 			}
 		});
 	};
 
 	overlay.show = (callback, config) => {
 		init();
+
+		$callback = callback;
 
 		_overlayContent.classList.remove('overlay__content--center');
 		_overlay.style.backgroundColor = null;
@@ -69,11 +74,10 @@ import './overlay.scss';
 				_overlay.style.backgroundColor = config.color;
 			}
 
-			if(config.opacity) {
+			if(config.opacity || config.opacity === 0) {
 				_overlay.style.opacity = config.opacity;
 			}
 		}
-
 
 
 		if(config.content) {
