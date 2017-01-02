@@ -74,7 +74,9 @@ window.ui = window.ui || {};
             }
 
             audioRange.onmousedown = rangeSelectStart;
+            audioRange.ontouchstart = rangeSelectStart;
             audioRange.onmouseup = rangeSelectEnd;
+            audioRange.ontouchend = rangeSelectEnd;
         }
 
 
@@ -100,10 +102,9 @@ window.ui = window.ui || {};
                 audioControls.appendChild(audioVolume);
             }
 
-            audioVolume.onmousemove = function(event) {
-                if(audioElement.volume != event.target.value/100)
-                    audioPlayer.setVolume(event.target.value);
-            }
+            audioVolume.onmousemove = volumeChange;
+
+            audioVolume.ontouchmove = volumeChange;
         }
 
         if(!audioTime) {
@@ -127,6 +128,11 @@ window.ui = window.ui || {};
 
         updateTime = true;
     }
+
+	function volumeChange(event) {
+		if(audioElement.volume != event.target.value/100)
+			audioPlayer.setVolume(event.target.value);
+	}
 
     function updateDuration() {
         audioRange.max = Math.floor(audioElement.duration);
