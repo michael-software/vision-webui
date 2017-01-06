@@ -9,7 +9,7 @@ export default class LoginHelper {
         CallbackHelper.register('parseHead', this.parseHead.bind(this), true);
 
         window.socket.on('loginstatus', (data) => {
-            if (data.status == 401) {
+            if (data.head && data.head.status == 401) {
                 this.showLogin();
             } else {
                 this.parseLogin(data);
