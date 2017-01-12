@@ -5,14 +5,15 @@ window.jui.views.checkbox = (function (jsonObject) {
     var properties = [];
 
     var _this = window.jui.views.checkbox;
+    var _shorthands = window.jui.views.shorthands;
     var _tools = window.jui.tools;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['name'])) {
-            _this.setName(jsonObject['name']);
+        if (!_tools.empty(jsonObject['name'] || jsonObject[_shorthands.keys.name])) {
+            _this.setName(jsonObject['name'] || jsonObject[_shorthands.keys.name]);
 
-            if(!_tools.empty(jsonObject['checked'])) {
-                _this.setChecked(jsonObject['checked']);
+            if(!_tools.empty(jsonObject['checked'] || jsonObject[_shorthands.keys.value])) {
+                _this.setChecked(jsonObject['checked'] || jsonObject[_shorthands.keys.value]);
             }
 
             properties = jsonObject;
@@ -26,7 +27,8 @@ window.jui.views.checkbox = (function (jsonObject) {
     };
 
      _this.setChecked = function (isChecked) {
-         if(typeof isChecked === 'boolean' && isChecked) {
+
+         if(isChecked === _shorthands.values.value.true || typeof isChecked === 'boolean' && isChecked) {
             checked = true;
          } else {
              checked = false;

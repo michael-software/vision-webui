@@ -1,5 +1,6 @@
 (function (view) {
 	var _tools = window.jui.tools;
+	var _shorthands = window.jui.views.shorthands;
 
 	view.addProperties = function(retval, properties) {
 		if(properties['width'] != null && properties['width'] != '') {
@@ -18,11 +19,11 @@
 			retval.style.background = _tools.convertHex(properties['background']);
 		}
 		
-		if(properties['visible'] != null && properties['visible'] == 'away') {
+		if(properties['visible'] === 'away') {
 			retval.style.display = 'none';
 		}
 		
-		if(properties['visible'] != null && properties['visible'] == 'invisible') {
+		if(properties['visible'] === 'invisible') {
 			retval.style.visibility = 'hidden';
 		}
 		
@@ -84,14 +85,14 @@
 			}, false);
 		}
 
-		if(!_tools.empty(properties['label'])) {
+		if(!_tools.empty(properties['label'] || properties[_shorthands.keys.label])) {
 			var newRetval = document.createElement('label');
 
 			if(retval.tagName.toLowerCase() === 'input' && retval.type.toLowerCase() === 'checkbox') {
 				newRetval.appendChild(retval);
-				newRetval.appendChild( document.createTextNode(properties['label']) );
+				newRetval.appendChild( document.createTextNode(properties['label'] || properties[_shorthands.keys.label]) );
 			} else {
-				newRetval.appendChild( document.createTextNode(properties['label']) );
+				newRetval.appendChild( document.createTextNode(properties['label'] || properties[_shorthands.keys.label]) );
 				newRetval.appendChild(retval);
 			}
 
@@ -99,5 +100,5 @@
 		}
 
 		return retval;
-	}
+	};
 })(window.jui.views.view = {});

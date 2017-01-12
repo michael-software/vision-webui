@@ -8,21 +8,23 @@ window.jui.views.text = (function (jsonObject) {
 
     var _this = window.jui.views.text;
     var _tools = window.jui.tools;
+    var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['value'])) {
-            _this.setValue(jsonObject['value']);
 
-            if (!_tools.empty(jsonObject['align'])) {
-                _this.setAlign(jsonObject['align']);
+        if (!_tools.empty(jsonObject['value']) || jsonObject[_shorthands.keys.value]) {
+            _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
+
+            if (!_tools.empty(jsonObject['align']) || jsonObject[_shorthands.keys.align]) {
+				_this.setAlign(jsonObject['align'] || jsonObject[_shorthands.keys.align]);
             }
 
-            if (!_tools.empty(jsonObject['appearance'])) {
-                _this.setAppearance(jsonObject['appearance']);
+            if (!_tools.empty(jsonObject['appearance']) || jsonObject[_shorthands.keys.appearance]) {
+                _this.setAppearance(jsonObject['appearance'] || jsonObject[_shorthands.keys.appearance]);
             }
 
-            if(!_tools.empty(jsonObject['shadow'])) {
-                _this.setShadow(jsonObject['shadow'])
+            if(!_tools.empty(jsonObject['shadow']) || jsonObject[_shorthands.keys.shadow]) {
+                _this.setShadow(jsonObject['shadow'] || jsonObject[_shorthands.keys.shadow])
             }
 
             properties = jsonObject;
@@ -39,25 +41,23 @@ window.jui.views.text = (function (jsonObject) {
     };
 
     _this.setAlign = function (pAlign) {
-        if (pAlign.toUpperCase() == 'RIGHT') {
+        if (pAlign === _shorthands.values.align.right || String(pAlign).toLowerCase() == 'right') {
             align = 'right';
-        } else if (pAlign.toUpperCase() == 'CENTER') {
+        } else if (pAlign === _shorthands.values.align.center || String(pAlign).toLowerCase() == 'center') {
             align = 'center';
-        } else if (pAlign.toUpperCase() == 'LEFT') {
-            align = 'right';
         } else {
             align = 'left';
         }
     };
 
     _this.setAppearance = function (appearance) {
-        if (appearance.toUpperCase() == 'BOLD') {
+        if (appearance === _shorthands.values.appearance.bold || String(appearance).toLowerCase() == 'bold') {
             bold = true;
             italic = false;
-        } else if (appearance.toUpperCase() == 'ITALIC') {
+        } else if (appearance === _shorthands.values.appearance.italic || String(appearance).toLowerCase() == 'italic') {
             bold = false;
             italic = true;
-        } else if (appearance.toUpperCase() == 'BOLDITALIC' || appearance.toUpperCase() == 'ITALICBOLD') {
+        } else if (appearance === _shorthands.values.appearance.bolditalic || String(appearance).toLowerCase() == 'bolditalic' || String(appearance).toLowerCase() == 'italicbold') {
             bold = true;
             italic = true;
         }

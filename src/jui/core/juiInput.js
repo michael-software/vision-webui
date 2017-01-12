@@ -7,21 +7,22 @@ window.jui.views.input = (function (jsonObject) {
 
     var _this = window.jui.views.input;
     var _tools = window.jui.tools;
+	var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['name'])) {
-            _this.setName(jsonObject['name']);
+        if (!_tools.empty(jsonObject['name'] || jsonObject[_shorthands.keys.name])) {
+            _this.setName(jsonObject['name'] || jsonObject[_shorthands.keys.name]);
 
-            if(!_tools.empty(jsonObject['value'])) {
-                _this.setValue(jsonObject['value']);
+            if(!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+                _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
             }
 
-            if (!_tools.empty(jsonObject['preset'])) {
-                _this.setPreset(jsonObject['preset']);
+            if (!_tools.empty(jsonObject['preset'] || jsonObject[_shorthands.keys.preset])) {
+                _this.setPreset(jsonObject['preset'] || jsonObject[_shorthands.keys.preset]);
             }
 
-            if (!_tools.empty(jsonObject['hint'])) {
-                _this.setHint(jsonObject['hint']);
+            if (!_tools.empty(jsonObject['hint'] || jsonObject['placeholder'] || jsonObject[_shorthands.keys.placeholder])) {
+                _this.setHint(jsonObject['hint'] || jsonObject['placeholder'] || jsonObject[_shorthands.keys.placeholder]);
             }
 
             properties = jsonObject;
@@ -35,7 +36,7 @@ window.jui.views.input = (function (jsonObject) {
     };
 
     _this.setHint = function (pHint) {
-        value = pHint;
+        hint = pHint;
     };
 
     _this.setName = function (pName) {
@@ -43,15 +44,15 @@ window.jui.views.input = (function (jsonObject) {
     };
 
     _this.setPreset = function (pPreset) {
-        if (pPreset.toUpperCase() == 'TEXTAREA') {
+        if (pPreset == _shorthands.values.preset.textarea || String(pPreset).toUpperCase() == 'TEXTAREA') {
             preset = 1;
-        } else if (pPreset.toUpperCase() == 'PASSWORD') {
+        } else if (pPreset == _shorthands.values.preset.password || String(pPreset).toUpperCase() == 'PASSWORD') {
             preset = 2;
-        } else if (pPreset.toUpperCase() == 'NUMBER') {
+        } else if (pPreset == _shorthands.values.preset.number || String(pPreset).toUpperCase() == 'NUMBER') {
             preset = 3;
-        } else if (pPreset.toUpperCase() == 'DATE') {
+        } else if (pPreset == _shorthands.values.preset.date || String(pPreset).toUpperCase() == 'DATE') {
             preset = 4;
-        } else if (pPreset.toUpperCase() == 'COLOR') {
+        } else if (pPreset == _shorthands.values.preset.color || String(pPreset).toUpperCase() == 'COLOR') {
             preset = 5;
         } else {
             preset = 0;
@@ -128,7 +129,7 @@ window.jui.views.input.date = (function () {
         button.addEventListener('click', _this.openDatePicker, false);
 
         return button;
-    }
+    };
 
     _this.openDatePicker = function(event) {
         var target = event.target;
@@ -144,7 +145,7 @@ window.jui.views.input.date = (function () {
         }
 
         window.jui.ui.datePicker.setDate(value);
-    }
+    };
 
     
 

@@ -10,7 +10,12 @@
 
 	var headers = null;
 	
-	jui.views = {};
+	jui.views = {
+		shorthands: require('./shorthands')
+	};
+
+	var _shorthands = jui.views.shorthands;
+
 	jui.padding;
 	jui.paddingLeft;
 	
@@ -30,13 +35,15 @@
 
 		window.jui.ui.datePicker.abort();
 
-		document.querySelector('body').style.backgroundColor = 'transparent';
+		//document.querySelector('body').style.backgroundColor = 'transparent';
 	};
 
 	jui.parse = function(jsonObject, parentElement, allElements) {
 
 		if(_tools.isString(jsonObject)) {
 			jsonObject = _tools.parseJuiJSON(jsonObject);
+		} else {
+			console.log(JSON.stringify(jsonObject));
 		}
 
         var returnedBool = false;
@@ -156,7 +163,7 @@
 
 	var parseHead = function(jsonObject) {
 		if (jsonObject['bgcolor'] != null) {
-			document.querySelector('body').style.backgroundColor = jsonObject['bgcolor'];
+			//document.querySelector('body').style.backgroundColor = jsonObject['bgcolor'];
 		}
 
 		if(parseHeadCallback !== null) {
@@ -189,8 +196,8 @@
 				for(var i = 0, x = customElements.length; i < x; i++) {
 					var customElement = customElements[i];
 
-					if(customElement.type.toLowerCase() == jsonObject['type'].toLowerCase() ||
-						customElement.shType.toLowerCase() == jsonObject['type'].toLowerCase()) {
+					if(String(customElement.type).toLowerCase() == String(jsonObject['type']).toLowerCase() ||
+						String(customElement.shType).toLowerCase() == String(jsonObject['type']).toLowerCase()) {
 						
 						el = new customElement.construct(jsonObject);
 
@@ -208,43 +215,66 @@
 
 	var parseSingleLineElements = function(jsonObject) {
 		var el = null;
-		
-		if(jsonObject['type'] == 'text') {
-			el = new window.jui.views.text(jsonObject);
-		} else if(jsonObject['type'] == 'heading') {
-			el = new window.jui.views.heading(jsonObject);
-		} else if(jsonObject['type'] == 'input') {
-			el = new window.jui.views.input(jsonObject); 
-		} else if(jsonObject['type'] == 'button') {
-			el = new window.jui.views.button(jsonObject);
-		} else if(jsonObject['type'] == 'checkbox') {
-			el = new window.jui.views.checkbox(jsonObject);
-		} else if(jsonObject['type'] == 'nl') {
-			el = new window.jui.views.newline();
-		} else if(jsonObject['type'] == 'hline') {
-			el = new window.jui.views.horizontalline();
-		} else if(jsonObject['type'] == 'file') {
-			el = new window.jui.views.file(jsonObject);
-		} else if(jsonObject['type'] == 'image') { 
-			el = new window.jui.views.image(jsonObject);
-		} else if(jsonObject['type'] == 'link') { 
-			el = new window.jui.views.link(jsonObject);
-		} else if(!_tools.empty(customSingleLineElements)) {
-			for(var i = 0, x = customSingleLineElements.length; i < x; i++) {
-				var customSingleLineElement = customSingleLineElements[i];
+		var type = jsonObject['type'] || jsonObject[_shorthands.keys.type];
 
-				if(customSingleLineElement.type.toLowerCase() == jsonObject['type'].toLowerCase() ||
-					customSingleLineElement.shType.toLowerCase() == jsonObject['type'].toLowerCase()) {
-					
-					el = new customSingleLineElement.construct(jsonObject);
+		switch(type) {
+			case 'text':
+			case _shorthands.values.type.text:
+				el = new window.jui.views.text(jsonObject);
+				break;
+			case 'heading':
+			case 'headline':
+			case _shorthands.values.type.headline:
+				el = new window.jui.views.heading(jsonObject);
+				break;
+			case 'nl':
+			case _shorthands.values.type.nline:
+				el = new window.jui.views.newline();
+				break;
+			case 'hline':
+			case _shorthands.values.type.hline:
+				el = new window.jui.views.horizontalline();
+				break;
+			case 'input':
+			case _shorthands.values.type.input:
+				el = new window.jui.views.input(jsonObject);
+				break;
+			case 'button':
+			case _shorthands.values.type.button:
+				el = new window.jui.views.button(jsonObject);
+				break;
+			case 'checkbox':
+			case _shorthands.values.type.checkbox:
+				el = new window.jui.views.checkbox(jsonObject);
+				break;
+			case 'file':
+				el = new window.jui.views.file(jsonObject);
+				break;
+			case 'image':
+				el = new window.jui.views.image(jsonObject);
+				break;
+			case 'link':
+				el = new window.jui.views.link(jsonObject);
+				break;
+			default:
+				if(!_tools.empty(customSingleLineElements)) {
+					for(var i = 0, x = customSingleLineElements.length; i < x; i++) {
+						var customSingleLineElement = customSingleLineElements[i];
 
-					if(!_tools.empty(el)) {
-						return el;
+						if(String(customSingleLineElement.type).toLowerCase() == String(type).toLowerCase() ||
+							String(customSingleLineElement.shType).toLowerCase() == String(type).toLowerCase()) {
+
+							el = new customSingleLineElement.construct(jsonObject);
+
+							if(!_tools.empty(el)) {
+								return el;
+							}
+						}
 					}
 				}
-			}
+				break;
 		}
-		
+
 		return el;
 	};
 
