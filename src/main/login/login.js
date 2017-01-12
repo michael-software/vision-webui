@@ -16,6 +16,14 @@ export default class LoginHelper {
             }
         });
 
+		window.socket.on('jwt_update', (data) => {
+			if (data.head && data.head.status == 401) {
+				this.showLogin();
+			} else {
+				this.parseLogin(data);
+			}
+		});
+
 
         if(localStorage.getItem('token') && localStorage.getItem('server')) {
             window.socket.emit('login', {
