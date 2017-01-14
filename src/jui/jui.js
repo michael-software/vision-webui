@@ -191,6 +191,7 @@
 					el = new window.jui.views.select(jsonObject);
 					break;
 				case 'table':
+				case _shorthands.values.type.table:
 					el = new window.jui.views.table(jsonObject, this);
 					break;
 				case 'frame':
