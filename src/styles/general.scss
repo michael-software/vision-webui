@@ -23,11 +23,7 @@
 }
 
 @mixin text($textcolor) {
-  div, p, h1, h2, h3, h4, h5, h6, td, a {
-    color: $textcolor;
-    font-size: 1em;
-    box-sizing: border-box;
-  }
+  color: $textcolor;
 
   h2 {
     font-size: 1.5em;
@@ -42,6 +38,12 @@ body {
   //background-color: #F9F9F9;
   font-family: Helvetica, Arial, sans-serif;
   overflow: hidden;
+
+  div, p, h1, h2, h3, h4, h5, h6, td, a, label, textarea, input {
+    color: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
 
   &.theme1 {
     $color: #FF0000;
@@ -69,8 +71,8 @@ body {
 }
 
 
-input[type="text"], input[type="password"], input[type="url"], input[type="search"], .jui__input {
-  &:not(.jui__input) {
+input[type="text"], input[type="password"], input[type="url"], input[type="search"], .jui__input, select {
+  &:not(.jui__input):not(.jui__select) {
     margin: 10px;
     padding: 5px;
 
@@ -201,4 +203,34 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: $track-color-highlight;
+}
+
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border:none;
+  border-radius: 0;
+  font-size: 1em;
+  min-width: 200px;
+  outline: none;
+
+  position: relative;
+  top: -12px;
+  height: 34px;
+
+
+  padding: 8px 9px 7px 9px !important;
+  box-sizing: border-box;
+  background-color: white;
+  background-image: url('data:image/svg+xml;utf8,<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg>');
+  background-position: right center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+
+  &:hover, &:focus {
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.2);
+  }
 }

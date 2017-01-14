@@ -4,7 +4,7 @@
   $border-color: calculateContrast($bgcolor, 23%);
   $border-color-highlight: calculateContrast($bgcolor, 50%);
 
-  input[type="text"], input[type="password"], input[type="url"], input[type="search"], .jui__input {
+  input[type="text"], input[type="password"], input[type="url"], input[type="search"], select, .jui__input, jui__select {
     &:hover {
       border-bottom-color: $border-color-highlight;
     }
