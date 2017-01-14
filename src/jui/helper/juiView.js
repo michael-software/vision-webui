@@ -3,72 +3,77 @@
 	var _shorthands = window.jui.views.shorthands;
 
 	view.addProperties = function(retval, properties) {
-		if(properties['width'] != null && properties['width'] != '') {
-			retval.style.width = properties['width'];
+		var style = properties[_shorthands.keys.style] || properties;
+
+		if(style.width) {
+			retval.style.width = style.width;
 		}
 		
-		if(properties['height'] != null && properties['height'] != '') {
-			retval.style.height = properties['height'];
-		}
-		
-		if(properties['color'] != null && properties['color'] != '') {
-			retval.style.color = _tools.convertHex(properties['color']);
+		if(style.height) {
+			retval.style.height = properties.height;
 		}
 
-		if(properties['background'] != null && properties['background'] != '') {
-			retval.style.background = _tools.convertHex(properties['background']);
+		if(style.color) {
+			retval.style.color = _tools.convertHex(style.color);
 		}
-		
-		if(properties['visible'] === 'away') {
+
+		if(style.background) {
+			retval.style.background = _tools.convertHex(style.background);
+		}
+
+		if(style.visibility === 'away' || style.visible === 'away') {
 			retval.style.display = 'none';
 		}
-		
-		if(properties['visible'] === 'invisible') {
+
+		if(style.visibility === 'invisible' || style.visible === 'invisible') {
 			retval.style.visibility = 'hidden';
 		}
-		
+
 
 		/* MARGIN */
-		if(properties['margin'] != null) {
-			retval.style.margin = properties['margin'];
-		}
-		
-		if(properties['marginTop'] != null) {
-			retval.style.marginTop = properties['marginTop'];
-		}
-		
-		if(properties['marginLeft'] != null) {
-			retval.style.marginLeft = properties['marginLeft'];
-		}
-		
-		if(properties['marginRight'] != null) {
-			retval.style.marginRight = properties['marginRight']
-		}
-		
-		if(properties['marginBottom'] != null) {
-			retval.style['marginBottom'] = properties['marginBottom']
-		}
-
+		addSpaces(retval, 'margin', style);
 
 		/* PADDING */
-		if(properties['padding'] != null) {
-			retval.style.padding = properties['padding'];
+		addSpaces(retval, 'padding', style);
+	};
+
+	var addSpaces = function(retval, type, style) {
+		if(type !== 'padding' && type !== 'margin') { return; }
+
+		let paddingTopKey = `${type}Top`;
+		let paddingLeftKey = `${type}Left`;
+		let paddingRightKey = `${type}Right`;
+		let paddingBottomKey = `${type}Bottom`;
+
+
+		if(style[type] && style[type].all) {
+			retval.style[type] = style[type].all;
+		} else if(_tools.isNumeric(style[type])) {
+			retval.style[type] = style[type];
 		}
-		
-		if(properties['paddingTop'] != null) {
-			retval.style.paddingTop = properties['paddingTop'];
+
+		if(style[type] && style[type].top) {
+			retval.style[paddingTopKey] = style[type].top;
+		} else if(_tools.isNumeric(style[paddingTopKey])) {
+			retval.style[paddingTopKey] = style[paddingTopKey];
 		}
-		
-		if(properties['paddingLeft'] != null) {
-			retval.style.paddingLeft = properties['paddingLeft'];
+
+		if(style[type] && style[type].left) {
+			retval.style[paddingLeftKey] = style[type].left;
+		} else if(_tools.isNumeric(style[paddingLeftKey])) {
+			retval.style[paddingLeftKey] = style[paddingLeftKey];
 		}
-		
-		if(properties['paddingRight'] != null) {
-			retval.style.paddingRight = properties['paddingRight']
+
+		if(style[type] && style[type].right) {
+			retval.style[paddingRightKey] = style[type].right;
+		} else if(_tools.isNumeric(style[paddingRightKey])) {
+			retval.style[paddingRightKey] = style[paddingRightKey];
 		}
-		
-		if(properties['paddingBottom'] != null) {
-			retval.style.paddingBottom = properties['paddingBottom']
+
+		if(style[type] && style[type].bottom) {
+			retval.style[paddingBottomKey] = style[type].bottom;
+		} else if(_tools.isNumeric(style[paddingBottomKey])) {
+			retval.style[paddingBottomKey] = style[paddingBottomKey];
 		}
 	};
 
