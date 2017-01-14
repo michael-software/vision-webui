@@ -248,8 +248,10 @@
 				el = new window.jui.views.checkbox(jsonObject);
 				break;
 			case 'file':
+			case _shorthands.values.type.file:
 				el = new window.jui.views.file(jsonObject);
 				break;
+			case _shorthands.values.type.image:
 			case 'image':
 				el = new window.jui.views.image(jsonObject);
 				break;
