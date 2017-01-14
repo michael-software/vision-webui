@@ -5,13 +5,14 @@ window.jui.views.select = (function (jsonObject) {
 
     var _this = window.jui.views.select;
     var _tools = window.jui.tools;
+	var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['name'])) {
-            _this.setName(jsonObject['name']);
+        if (!_tools.empty(jsonObject['name'] || jsonObject[_shorthands.keys.name])) {
+            _this.setName(jsonObject['name'] || jsonObject[_shorthands.keys.name]);
 
-            if(!_tools.empty(jsonObject['value'])) {
-                _this.setValue(jsonObject['value']);
+            if(!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+                _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
             }
 
             properties = jsonObject;
