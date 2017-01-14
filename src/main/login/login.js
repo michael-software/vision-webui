@@ -46,6 +46,10 @@ export default class LoginHelper {
                 bearer: localStorage.getItem('token')
             });
         }
+
+		if ( head.status === 401 ) {
+            this.logout();
+		}
     }
 
     parseLogin(data) {
@@ -104,5 +108,12 @@ export default class LoginHelper {
         });
 
         new window.loadingIndicator.show('login');
+    }
+
+    logout() {
+		localStorage.removeItem('server');
+		localStorage.removeItem('username');
+
+		this.showLogin();
     }
 }
