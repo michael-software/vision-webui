@@ -4,10 +4,11 @@ window.jui.views.image = (function (jsonObject) {
 
     var _this = window.jui.views.image;
     var _tools = window.jui.tools;
+	var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['value'])) {
-            _this.setValue(jsonObject['value']);
+        if (!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+            _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
 
             properties = jsonObject;
         }
