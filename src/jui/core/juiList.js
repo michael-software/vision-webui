@@ -5,17 +5,18 @@ window.jui.views.list = (function (jsonObject) {
 
     var _this = window.jui.views.list;
     var _tools = window.jui.tools;
+    var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['value'])) {
-            _this.setValue(jsonObject['value']);
+        if (!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+            _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
 
-            if(!_tools.empty(jsonObject['click'])) {
-                _this.setClick(jsonObject['click']);
+            if(!_tools.empty(jsonObject['click'] || jsonObject[_shorthands.keys.click])) {
+                _this.setClick(jsonObject['click'] || jsonObject[_shorthands.keys.click]);
             }
 
-            if(!_tools.empty(jsonObject['longclick'])) {
-                _this.setLongClick(jsonObject['longclick']);
+            if(!_tools.empty(jsonObject['longclick'] || jsonObject[_shorthands.keys.longclick])) {
+                _this.setLongClick(jsonObject['longclick'] || jsonObject[_shorthands.keys.longclick]);
             }
 
             properties = jsonObject;
