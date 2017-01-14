@@ -2,6 +2,8 @@ import MenuItem from './MenuItem';
 import MenuUserItem from './MenuMoreItem';
 import './MenuView.scss';
 
+import CallbackHelper from '../../utils/CallbackHelper';
+
 export default class MenuView {
 	constructor() {
 	}
@@ -39,6 +41,10 @@ export default class MenuView {
             let menuItem = new MenuUserItem();
             this._menu.appendChild(menuItem.getNode());
 
+            let parse = true;
+            if(data && data.head) parse = CallbackHelper.call('parseHead', data.head);
+
+            if(parse)
 			data.map((element) => {
 				if(element.id != 'plg_order' && element.id != 'plg_user') {
 					let menuItem = new MenuItem(element);
