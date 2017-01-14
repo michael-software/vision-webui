@@ -178,34 +178,47 @@
 		if(jsonObject['type'] === null) return null;
 
 		var el = parseSingleLineElements(jsonObject);
+		var type = jsonObject['type'] || jsonObject[_shorthands.keys.type];
 
 		if(allElements) {
-			if(jsonObject['type'] == 'list') {
-				el = new window.jui.views.list(jsonObject);
-			} else if(jsonObject['type'] == 'table') {
-				el = new window.jui.views.table(jsonObject, this);
-			} else if(jsonObject['type'] == 'frame') {
-				el = new window.jui.views.frame(jsonObject);
-			} else if(jsonObject['type'] == 'range') { /* TODO */
-				el = new window.jui.views.range(jsonObject);
-			} else if(jsonObject['type'] == 'container') {
-				el = new window.jui.views.container(jsonObject);
-			} else if(jsonObject['type'] == 'select') {
-				el = new window.jui.views.select(jsonObject);
-			} else if(!_tools.empty(customElements)) {
-				for(var i = 0, x = customElements.length; i < x; i++) {
-					var customElement = customElements[i];
+			switch(type) {
+				case 'list':
+				case _shorthands.values.type.list:
+					el = new window.jui.views.list(jsonObject);
+					break;
+				case 'select':
+				case _shorthands.values.type.select:
+					el = new window.jui.views.select(jsonObject);
+					break;
+				case 'table':
+					el = new window.jui.views.table(jsonObject, this);
+					break;
+				case 'frame':
+					el = new window.jui.views.frame(jsonObject);
+					break;
+				case 'range':
+					el = new window.jui.views.range(jsonObject);
+					break;
+				case 'container':
+					el = new window.jui.views.container(jsonObject);
+					break;
+				default:
+					if(!_tools.empty(customElements)) {
+						for(var i = 0, x = customElements.length; i < x; i++) {
+							var customElement = customElements[i];
 
-					if(String(customElement.type).toLowerCase() == String(jsonObject['type']).toLowerCase() ||
-						String(customElement.shType).toLowerCase() == String(jsonObject['type']).toLowerCase()) {
-						
-						el = new customElement.construct(jsonObject);
+							if(String(customElement.type).toLowerCase() == String(jsonObject['type']).toLowerCase() ||
+								String(customElement.shType).toLowerCase() == String(jsonObject['type']).toLowerCase()) {
 
-						if(!_tools.empty(el)) {
-							return el;
+								el = new customElement.construct(jsonObject);
+
+								if(!_tools.empty(el)) {
+									return el;
+								}
+							}
 						}
 					}
-				}
+					break;
 			}
 
 		}
