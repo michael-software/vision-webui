@@ -36,21 +36,45 @@ window.jui.views.file = (function (jsonObject) {
     _this.getDomElement = function () {
         if(!_tools.empty(name)) {
 
-			var el = new window.jui.views.button({
-                value: 'Upload'
-            }).getDomElement();
-
-            var input = document.createElement('input');
+			// === File Input ===
+			var input = document.createElement('input');
 			input.type = 'file';
 			input.style.display = 'none';
 			if(multiple) {
 				input.multiple = 'multiple';
 			}
 
-			el.addEventListener('click', function() {
-			    input.click();
-            });
+			input.addEventListener('change', function(event) {
+				let value = window.jui.lang.get('select_file');
+				if(multiple) {
+					value = window.jui.lang.get('select_files');
+				}
 
+				if(input.files.length > 1) {
+					value = window.jui.lang.get('selected_files').replace(/##count##/g, input.files.length);
+				} else if(input.files.length === 1) {
+					value = window.jui.lang.get('selected_file');
+				}
+
+				el.value = value;
+			});
+
+
+			// === Button ===
+			let value = window.jui.lang.get('select_file');
+			if(multiple) {
+				value = window.jui.lang.get('select_files');
+			}
+
+			var el = new window.jui.views.button({
+                value: value
+            }).getDomElement();
+
+			el.addEventListener('click', function() {
+				input.click();
+			});
+
+			// === Return Container ===
 			var retval = document.createElement('div');
 			retval.style.display = 'inline-block';
 			retval.className = 'jui__file';
