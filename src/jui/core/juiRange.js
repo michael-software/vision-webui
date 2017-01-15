@@ -6,21 +6,22 @@ window.jui.views.range = (function (jsonObject) {
 
     var _this = window.jui.views.range;
     var _tools = window.jui.tools;
+    var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['name'])) {
-            _this.setName(jsonObject['name']);
+        if (!_tools.empty(jsonObject['name'] || jsonObject[_shorthands.keys.name])) {
+            _this.setName(jsonObject['name'] || jsonObject[_shorthands.keys.name]);
 
-            if(!_tools.empty(jsonObject['value'])) {
-                _this.setValue(jsonObject['value']);
+            if(!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+                _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
             }
 
-            if (!_tools.empty(jsonObject['min'])) {
-                _this.setMin(jsonObject['min']);
+            if (!_tools.empty(jsonObject['min'] || jsonObject[_shorthands.keys.min])) {
+                _this.setMin(jsonObject['min'] || jsonObject[_shorthands.keys.min]);
             }
 
-            if (!_tools.empty(jsonObject['max'])) {
-                _this.setMax(jsonObject['max']);
+            if (!_tools.empty(jsonObject['max'] || jsonObject[_shorthands.keys.max])) {
+                _this.setMax(jsonObject['max'] || jsonObject[_shorthands.keys.max]);
             }
 
             properties = jsonObject;

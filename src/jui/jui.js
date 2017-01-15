@@ -199,6 +199,7 @@
 					el = new window.jui.views.frame(jsonObject);
 					break;
 				case 'range':
+				case _shorthands.values.type.range:
 					el = new window.jui.views.range(jsonObject);
 					break;
 				case 'container':
