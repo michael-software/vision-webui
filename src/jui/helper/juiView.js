@@ -1,24 +1,25 @@
 (function (view) {
 	var _tools = window.jui.tools;
-	var _shorthands = window.jui.views.shorthands;
+	var _shortKeys = window.jui.views.shorthands.keys;
 
 	view.addProperties = function(retval, properties) {
-		var style = properties[_shorthands.keys.style] || properties;
+		var style = properties[_shortKeys.style] || properties;
+		if(!style) return;
 
-		if(style.width) {
-			retval.style.width = style.width;
+		if(style[_shortKeys.width] || style.width) {
+			retval.style.width = style[_shortKeys.width] || style.width;
 		}
 		
-		if(style.height) {
-			retval.style.height = properties.height;
+		if(style[_shortKeys.height] || style.height) {
+			retval.style.height = style[_shortKeys.height] || properties.height;
 		}
 
-		if(style.color) {
-			retval.style.color = _tools.convertHex(style.color);
+		if(style[_shortKeys.color] || style.color) {
+			retval.style.color = _tools.convertHex(style[_shortKeys.color] || style.color);
 		}
 
-		if(style.background) {
-			retval.style.background = _tools.convertHex(style.background);
+		if(style[_shortKeys.background] || style.background) {
+			retval.style.background = _tools.convertHex(style[_shortKeys.background] || style.background);
 		}
 
 		if(style.visibility === 'away' || style.visible === 'away') {
@@ -29,51 +30,58 @@
 			retval.style.visibility = 'hidden';
 		}
 
-
 		/* MARGIN */
-		addSpaces(retval, 'margin', style);
+		var margin = style[_shortKeys.margin] || style.margin;
+		if(margin) addSpaces(retval, 'margin', margin);
 
 		/* PADDING */
-		addSpaces(retval, 'padding', style);
+		var padding = style[_shortKeys.padding] || style.padding;
+		if(padding) addSpaces(retval, 'padding', padding);
 	};
 
 	var addSpaces = function(retval, type, style) {
 		if(type !== 'padding' && type !== 'margin') { return; }
 
-		let paddingTopKey = `${type}Top`;
-		let paddingLeftKey = `${type}Left`;
-		let paddingRightKey = `${type}Right`;
-		let paddingBottomKey = `${type}Bottom`;
+		const all 		= _shortKeys.all;
+		const left 		= _shortKeys.left;
+		const right 	= _shortKeys.right;
+		const top 		= _shortKeys.top;
+		const bottom 	= _shortKeys.bottom;
+
+		const topKey 	= `${type}Top`;
+		const leftKey 	= `${type}Left`;
+		const rightKey	= `${type}Right`;
+		const bottomKey = `${type}Bottom`;
 
 
-		if(style[type] && style[type].all) {
-			retval.style[type] = style[type].all;
-		} else if(_tools.isNumeric(style[type])) {
-			retval.style[type] = style[type];
+		if(style && style[all]) {
+			retval.style[type] = style[all];
+		} else if(_tools.isNumeric(style)) {
+			retval.style[type] = style;
 		}
 
-		if(style[type] && style[type].top) {
-			retval.style[paddingTopKey] = style[type].top;
-		} else if(_tools.isNumeric(style[paddingTopKey])) {
-			retval.style[paddingTopKey] = style[paddingTopKey];
+		if(style && style[top]) {
+			retval.style[topKey] = style[top];
+		} else if(_tools.isNumeric(style[topKey])) {
+			retval.style[topKey] = style[topKey];
 		}
 
-		if(style[type] && style[type].left) {
-			retval.style[paddingLeftKey] = style[type].left;
-		} else if(_tools.isNumeric(style[paddingLeftKey])) {
-			retval.style[paddingLeftKey] = style[paddingLeftKey];
+		if(style && style[left]) {
+			retval.style[leftKey] = style[left];
+		} else if(_tools.isNumeric(style[leftKey])) {
+			retval.style[leftKey] = style[leftKey];
 		}
 
-		if(style[type] && style[type].right) {
-			retval.style[paddingRightKey] = style[type].right;
-		} else if(_tools.isNumeric(style[paddingRightKey])) {
-			retval.style[paddingRightKey] = style[paddingRightKey];
+		if(style && style[right]) {
+			retval.style[rightKey] = style[right];
+		} else if(_tools.isNumeric(style[rightKey])) {
+			retval.style[rightKey] = style[rightKey];
 		}
 
-		if(style[type] && style[type].bottom) {
-			retval.style[paddingBottomKey] = style[type].bottom;
-		} else if(_tools.isNumeric(style[paddingBottomKey])) {
-			retval.style[paddingBottomKey] = style[paddingBottomKey];
+		if(style && style[bottom]) {
+			retval.style[bottomKey] = style[bottom];
+		} else if(_tools.isNumeric(style[bottomKey])) {
+			retval.style[bottomKey] = style[bottomKey];
 		}
 	};
 
@@ -90,14 +98,14 @@
 			}, false);
 		}
 
-		if(!_tools.empty(properties['label'] || properties[_shorthands.keys.label])) {
+		if(!_tools.empty(properties['label'] || properties[_shortKeys.label])) {
 			var newRetval = document.createElement('label');
 
 			if(retval.tagName.toLowerCase() === 'input' && retval.type.toLowerCase() === 'checkbox') {
 				newRetval.appendChild(retval);
-				newRetval.appendChild( document.createTextNode(properties['label'] || properties[_shorthands.keys.label]) );
+				newRetval.appendChild( document.createTextNode(properties['label'] || properties[_shortKeys.label]) );
 			} else {
-				newRetval.appendChild( document.createTextNode(properties['label'] || properties[_shorthands.keys.label]) );
+				newRetval.appendChild( document.createTextNode(properties['label'] || properties[_shortKeys.label]) );
 				newRetval.appendChild(retval);
 			}
 

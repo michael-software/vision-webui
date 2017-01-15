@@ -203,6 +203,7 @@
 					el = new window.jui.views.range(jsonObject);
 					break;
 				case 'container':
+				case _shorthands.values.type.container:
 					el = new window.jui.views.container(jsonObject);
 					break;
 				default:
