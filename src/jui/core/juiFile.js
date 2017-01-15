@@ -36,15 +36,28 @@ window.jui.views.file = (function (jsonObject) {
     _this.getDomElement = function () {
         if(!_tools.empty(name)) {
 
-            var retval = document.createElement('input');
-            retval.type = 'file';
-            retval.className = 'jui__file';
+			var el = new window.jui.views.button({
+                value: 'Upload'
+            }).getDomElement();
 
-            window.jui.registerSubmitElement(name, retval);
+            var input = document.createElement('input');
+			input.type = 'file';
+			input.style.display = 'none';
+			if(multiple) {
+				input.multiple = 'multiple';
+			}
 
-            if(multiple) {
-                retval.multiple = 'multiple';
-            }
+			el.addEventListener('click', function() {
+			    input.click();
+            });
+
+			var retval = document.createElement('div');
+			retval.style.display = 'inline-block';
+			retval.className = 'jui__file';
+			retval.appendChild(el);
+			retval.appendChild(input);
+
+            window.jui.registerSubmitElement(name, input);
 
             window.jui.views.view.addProperties(retval, properties);
 
