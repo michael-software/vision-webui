@@ -5,10 +5,11 @@ window.jui.views.container = (function (jsonObject) {
 
     var _this = window.jui.views.table;
     var _tools = window.jui.tools;
+	var _shorthands = window.jui.views.shorthands;
 
     var parse = function (jsonObject) {
-        if (!_tools.empty(jsonObject['value'])) {
-            _this.setValue(jsonObject['value']);
+        if (!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+            _this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
 
             properties = jsonObject;
         }
@@ -17,7 +18,7 @@ window.jui.views.container = (function (jsonObject) {
     };
 
     _this.setValue = function (pValue) {
-        if(_tools.isArray(jsonObject['value'])) {
+        if(_tools.isArray(pValue)) {
             value = pValue;
         }
     };
