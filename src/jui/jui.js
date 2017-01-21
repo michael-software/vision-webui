@@ -211,8 +211,8 @@
 						for(var i = 0, x = customElements.length; i < x; i++) {
 							var customElement = customElements[i];
 
-							if(String(customElement.type).toLowerCase() == String(jsonObject['type']).toLowerCase() ||
-								String(customElement.shType).toLowerCase() == String(jsonObject['type']).toLowerCase()) {
+							if(String(customElement.type).toLowerCase() == String(type).toLowerCase() ||
+								String(customElement.shType).toLowerCase() == String(type).toLowerCase()) {
 
 								el = new customElement.construct(jsonObject);
 
