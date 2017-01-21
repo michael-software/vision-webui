@@ -173,10 +173,10 @@ window.jui = {};
 				return hex;
 			} else if(length == 8 || length == 9) {
 				hex = hex.replace('#','');
-				opacity = parseInt(hex.substring(0,2), 16);
-				r = parseInt(hex.substring(2,4), 16);
-				g = parseInt(hex.substring(4,6), 16);
-				b = parseInt(hex.substring(6,8), 16);
+				var opacity = parseInt(hex.substring(0,2), 16);
+				var r = parseInt(hex.substring(2,4), 16);
+				var g = parseInt(hex.substring(4,6), 16);
+				var b = parseInt(hex.substring(6,8), 16);
 
 				return 'rgba('+r+','+g+','+b+','+opacity/255+')';
 			}
