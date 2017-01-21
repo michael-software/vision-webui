@@ -53,19 +53,14 @@ import './overlay.scss';
 			}
 		}
 
+		if(config.allowTouchEvents) {
+			_overlay.ontouchend = _overlayContent.ontouchend = overlayClick;
+		}
+
 		clearTimeout(_overlayClose);
 		_overlay.style.display = 'block';
 
-		_overlay.onclick = _overlayContent.onclick = function(event) {
-			event.stopPropagation();
-			event.preventDefault();
-
-			if(callback && callback.call) {
-				callback.call(event);
-			}
-
-			return false;
-		};
+		_overlay.onclick = _overlayContent.onclick = overlayClick;
 
 		document.querySelector('.content').keydown = null;
 
@@ -87,6 +82,17 @@ import './overlay.scss';
 
 		_overlay.classList.remove('overlay--hide');
 	};
+
+	function overlayClick(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if($callback && $callback.call) {
+			$callback.call(event);
+		}
+
+		return false;
+	}
 
 	overlay.hide = () => {
 		init();
