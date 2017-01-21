@@ -17,17 +17,16 @@ export default class MenuItem {
 			return;
 		}
 
-		if(!config.onclick) {
-            this._item.addEventListener('click', () => {
-                window.actions.openPlugin(config.id);
-            });
-		} else {
-            this._item.addEventListener('click', (event) => {
-            	let trigger = config.onclick(event);
+		this._item.addEventListener('click', (event) => {
+			this._onClick(event, config);
+		});
 
-            	if(trigger !== false)
-                	window.actions.openPlugin(config.id);
-            });
+		if(config.ontouchstart) {
+			this._item.addEventListener('touchstart', function(event) {
+				event.preventDefault();
+
+				config.ontouchstart(event);
+			});
 		}
 
 		if(config.icon) {
@@ -35,6 +34,19 @@ export default class MenuItem {
 		}
 
 		this.setName(config.name || config.id);
+	}
+
+	_onClick(event, config) {
+		event.preventDefault();
+
+		if(!config.onclick) {
+			window.actions.openPlugin(config.id);
+		} else {
+			let trigger = config.onclick(event);
+
+			if(trigger !== false)
+				window.actions.openPlugin(config.id);
+		}
 	}
 
 	setName(name) {
