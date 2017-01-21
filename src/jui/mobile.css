@@ -1,10 +1,15 @@
 @media screen and (max-width: 450px) {
-    .jui__button, .jui__input {
+    .jui__button, .jui__input, .jui__file {
         display: block;
         width: 100%;
     }
 
     .jui__button {
         padding: 10px;
+    }
+
+    .jui__file>.jui__button {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }
