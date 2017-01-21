@@ -18,8 +18,12 @@ import Promise from 'promise-polyfill';
 import addHeadElement from './utils/addHeadElement';
 
 
-let server = window.location.protocol + '//' + window.location.hostname + ':3000';
-
+let server = window.location.protocol + '//' + window.location.hostname;
+if(window.location.protocol == 'https:') {
+	server += ':3443';
+} else {
+    server += ':3000';
+}
 
 window.ready(function () {
     addHeadElement(server + '/socket.io/socket.io.js', 'JS', () => {
