@@ -115,5 +115,6 @@ export default class LoginHelper {
 		localStorage.removeItem('username');
 
 		this.showLogin();
+		window.location.reload();
     }
 }
