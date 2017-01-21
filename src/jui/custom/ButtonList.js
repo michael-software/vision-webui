@@ -1,3 +1,6 @@
+import './FontAwesome';
+
+import './ButtonList.scss';
 
 window.buttonlist = (function (jsonObject) {
 	var value = '';
@@ -8,19 +11,21 @@ window.buttonlist = (function (jsonObject) {
 
 	var _this = window.buttonlist;
 	var _tools = window.jui.tools;
+	var _shorthands = window.jui.views.shorthands;
 
 	var placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 	var parse = function (jsonObject) {
-		if (!_tools.empty(jsonObject['value'])) {
-			_this.setValue(jsonObject['value']);
+		console.log('render', jsonObject);
+		if (!_tools.empty(jsonObject['value'] || jsonObject[_shorthands.keys.value])) {
+			_this.setValue(jsonObject['value'] || jsonObject[_shorthands.keys.value]);
 
-			if(!_tools.empty(jsonObject['click'])) {
-				_this.setClick(jsonObject['click']);
+			if(!_tools.empty(jsonObject['click'] || jsonObject[_shorthands.keys.click])) {
+				_this.setClick(jsonObject['click'] || jsonObject[_shorthands.keys.click]);
 			}
 
-			if(!_tools.empty(jsonObject['longclick'])) {
-				_this.setLongClick(jsonObject['longclick']);
+			if(!_tools.empty(jsonObject['longclick'] || jsonObject[_shorthands.keys.longclick])) {
+				_this.setLongClick(jsonObject['longclick'] || jsonObject[_shorthands.keys.longclick]);
 			}
 
 			properties = jsonObject;
@@ -44,7 +49,7 @@ window.buttonlist = (function (jsonObject) {
 	_this.getDomElement = function () {
 		if(!_tools.empty(value)) {
 			var div = document.createElement('div');
-			div.className = 'buttonlist';
+			div.className = 'jui__buttonlist';
 
 			for(var i = 0; i < value.length; i++) {
 				var image   = value[i]['value'][0];
@@ -54,9 +59,15 @@ window.buttonlist = (function (jsonObject) {
 
 				if(_tools.empty(image)) image = placeholder;
 
-				var img = document.createElement('img');
-				img.src = image;
-				tile.appendChild(img);
+				if(String(image).startsWith('fa')) {
+					var faElement = window.fontAwesomeImage(String(image), 130, 130, 20);
+					faElement.className = 'fa--image';
+					tile.appendChild( faElement );
+				} else {
+					var img = document.createElement('img');
+					img.src = image;
+					tile.appendChild(img);
+				}
 
 
 				var name = document.createElement('p');
