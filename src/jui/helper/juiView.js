@@ -54,31 +54,31 @@
 		const bottomKey = `${type}Bottom`;
 
 
-		if(style && style[all]) {
+		if(style && (style[all] || style[all] === 0)) {
 			retval.style[type] = style[all];
 		} else if(_tools.isNumeric(style)) {
 			retval.style[type] = style;
 		}
 
-		if(style && style[top]) {
+		if(style && (style[top] || style[top] === 0)) {
 			retval.style[topKey] = style[top];
 		} else if(_tools.isNumeric(style[topKey])) {
 			retval.style[topKey] = style[topKey];
 		}
 
-		if(style && style[left]) {
+		if(style && (style[left] || style[left] === 0)) {
 			retval.style[leftKey] = style[left];
 		} else if(_tools.isNumeric(style[leftKey])) {
 			retval.style[leftKey] = style[leftKey];
 		}
 
-		if(style && style[right]) {
+		if(style && (style[right] || style[right] === 0)) {
 			retval.style[rightKey] = style[right];
 		} else if(_tools.isNumeric(style[rightKey])) {
 			retval.style[rightKey] = style[rightKey];
 		}
 
-		if(style && style[bottom]) {
+		if(style && (style[bottom] || style[bottom] === 0)) {
 			retval.style[bottomKey] = style[bottom];
 		} else if(_tools.isNumeric(style[bottomKey])) {
 			retval.style[bottomKey] = style[bottomKey];
