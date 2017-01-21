@@ -88,7 +88,8 @@ export default class MenuMoreItem extends MenuItem {
 			id: 'plg_user',
 			icon: 'fa-plus',
 			name: window.user.username,
-			onclick: MenuMoreItem.openCentral
+			onclick: MenuMoreItem.openCentral,
+			ontouchstart: MenuMoreItem.openCentral
 		};
 
 		super(config);
