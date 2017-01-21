@@ -15,17 +15,6 @@ export default class ContentView {
 			this._content.className = 'content content--hide';
 		document.body.appendChild(this._content);
 
-
-		// window.addEventListener('popstate', (e) => {
-		// 	var character = e.state;
-		//
-		// 	this.parseState(character);
-		// });
-		//
-		// CallbackHelper.register('popstate', (data) => {
-		// 	this.parseState(data);
-		// }, true);
-
 		CallbackHelper.register('reloadContent', this.reloadContent.bind(this));
 
 		window.addEventListener('hashchange', () => {
@@ -37,7 +26,7 @@ export default class ContentView {
 		window.jui.init(this._content);
 		window.jui.clean();
 
-		window.jui.registerCustomElement('buttonlist', window.buttonlist,'bl');
+		window.jui.registerCustomElement('buttonlist', window.buttonlist, 'bl');
 		window.jui.registerCustomElement('editor', window.editor,'ed');
 		window.jui.registerCustomElement('autoinput', window.autoinput,'ai');
 
