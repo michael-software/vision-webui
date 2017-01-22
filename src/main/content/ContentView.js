@@ -219,7 +219,7 @@ export default class ContentView {
 	}
 
 	openHome() {
-		this._content.appendChild(document.createTextNode('Home'));
+		this.loadPlugin('plg_home');
 	}
 
 	loadPlugin(name, view, param) {
