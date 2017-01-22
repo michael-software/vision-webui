@@ -2,6 +2,7 @@ import LoginHelper from './main/login/login';
 import MenuView from './main/menu/MenuView';
 import ContentView from './main/content/ContentView';
 import SearchView from './main/search/SearchView';
+import NotificationHelper from './main/notification/NotificationHelper';
 
 import './dimension';
 
@@ -40,6 +41,7 @@ window.ready(function () {
         loginHelper.on('login', (data) => {
             searchView.init();
 
+			let notificationHelper = new NotificationHelper(window.socket);
 
             let menuView = new MenuView();
             menuView.load();
