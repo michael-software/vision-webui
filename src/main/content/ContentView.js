@@ -143,6 +143,23 @@ export default class ContentView {
 	parse(data) {
 		if(document.querySelector('.editor-frame')) document.querySelector('.editor-frame').style.display = 'none';
 
+		if(data.response && data.response.head && data.response.head.status === 500) {
+			console.error('[Server]', data.response.data);
+
+			window.jui.parse({
+				data: [{
+					type: 'headline',
+					value: 'Fehler am Server',
+					color: '#FF0000'
+				},{
+					type: 'text',
+					value: data.response.data
+				}]
+			});
+
+			return false;
+		}
+
 		window.jui.parse(data.response, null, true);
 	}
 
