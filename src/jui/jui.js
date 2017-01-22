@@ -43,7 +43,7 @@
 		if(_tools.isString(jsonObject)) {
 			jsonObject = _tools.parseJuiJSON(jsonObject);
 		} else {
-			console.log(JSON.stringify(jsonObject));
+			console.debug(JSON.stringify(jsonObject));
 		}
 
         var returnedBool = false;
