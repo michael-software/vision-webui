@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 var ROOT_PATH = path.resolve('./');
 
@@ -39,6 +40,12 @@ export default {
             'process.env': {
                 'NODE_ENV': 'production'
             }
-        })
+        }),
+		new CopyWebpackPlugin([
+			{ from: 'images/vision_48.png', to: 'images/' },
+			{ from: 'images/vision_96.png', to: 'images/' },
+			{ from: 'images/vision_144.png', to: 'images/' },
+			{ from: 'images/vision_192.png', to: 'images/' }
+		])
     ]
 };
