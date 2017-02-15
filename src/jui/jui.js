@@ -369,7 +369,10 @@
 			} else if(tagName && tagName.toLowerCase() == "input" &&
 				element.type.toLowerCase() == "checkbox") {
 
-				if(element.checked)  data[name] = 1;
+				if(element.checked)
+					data[name] = true;
+				else
+					data[name] = false;
 			} else if(tagName && tagName.toLowerCase() == "input" &&
 				element.type.toLowerCase() == "file") {
 
