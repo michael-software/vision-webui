@@ -166,6 +166,14 @@
 			//document.querySelector('body').style.backgroundColor = jsonObject['bgcolor'];
 		}
 
+		if(_tools.isArray( jsonObject['scripts'] )) {
+			var scripts = jsonObject['scripts'];
+
+			for(var i = 0, z = scripts.length; i < z; i++) {
+				window.jui.action.call(scripts[i]);
+			}
+		}
+
 		if(parseHeadCallback !== null) {
 			parseHeadCallback(jsonObject);
 		}
