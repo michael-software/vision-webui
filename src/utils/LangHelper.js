@@ -14,7 +14,8 @@ export default class LangHelper {
 		'password': 'Kennwort',
 		'login': 'Anmelden',
 		'server': 'Server',
-		'search': 'Suchen'
+		'search': 'Suchen',
+		'wrong_credentials': 'Diese Kombination aus Benutzername und Kennwort ist nicht richtig.'
 	};
 
 	static language_en = {
@@ -22,6 +23,7 @@ export default class LangHelper {
 		'password': 'Password',
 		'login': 'Login',
 		'server': 'Server',
-        'search': 'Search'
+        'search': 'Search',
+		'wrong_credentials': 'Your credentials are invalid.'
 	};
 }

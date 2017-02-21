@@ -1,4 +1,5 @@
 import LoginView from './LoginView';
+import LangHelper from '../../utils/LangHelper';
 
 import CallbackHelper from '../../utils/CallbackHelper';
 
@@ -11,6 +12,7 @@ export default class LoginHelper {
         window.socket.on('loginstatus', (data) => {
             if (data.head && data.head.status == 401) {
                 this.showLogin();
+				window.dialog.alert(LangHelper.get('wrong_credentials'));
             } else {
                 this.parseLogin(data);
             }
@@ -84,6 +86,7 @@ export default class LoginHelper {
 
     showLogin() {
         this.loginView.show();
+		new window.loadingIndicator.hide('login');
     }
 
     closeLogin() {

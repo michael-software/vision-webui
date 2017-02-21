@@ -6,11 +6,12 @@ import NotificationHelper from './main/notification/NotificationHelper';
 
 import './dimension';
 
+import './styles/general.scss';
 import './jui/juiLoader';
 import './actions';
 import './main/loading/loading';
 import './main/overlay/overlay';
-import './styles/general.scss';
+import './main/dialog/dialog';
 
 import './jui/general.css';
 import './jui/desktop.css';
