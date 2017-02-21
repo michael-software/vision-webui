@@ -22,11 +22,9 @@
 			retval.style.background = _tools.convertHex(style[_shortKeys.background] || style.background);
 		}
 
-		if(style.visibility === 'away' || style.visible === 'away') {
+		if(style[_shortKeys.visibility] === 'away' || style.visible === 'away') {
 			retval.style.display = 'none';
-		}
-
-		if(style.visibility === 'invisible' || style.visible === 'invisible') {
+		} else if(style[_shortKeys.visibility] === 'invisible' || style.visible === 'invisible') {
 			retval.style.visibility = 'hidden';
 		}
 
