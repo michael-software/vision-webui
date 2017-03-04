@@ -72,7 +72,7 @@ export default class ContentView {
 			let value = formObj[key];
 
 			if(value instanceof FileList) {
-				let fileValue = {type: 'filelist'};
+				let fileValue = [];
 
 				for(let i = 0, z = value.length; i < z; i++) {
 					let fileId = null;
@@ -80,7 +80,7 @@ export default class ContentView {
                     fileId = SocketHelper.uploadFile(window.socket, value[i]);
 
                     if(fileId !== null) {
-                        fileValue[i] = fileId;
+                        fileValue.push(fileId);
                     }
 				}
 

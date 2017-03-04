@@ -376,7 +376,7 @@
 			} else if(tagName && tagName.toLowerCase() == "input" &&
 				element.type.toLowerCase() == "file") {
 
-                data[name + '[]'] = element.files;
+                data[name] = element.files;
 				// for(var j = 0, k = element.files.length; j < k; j++) {
 				// 	console.log(element.files[0].name);
                  //    ; /* TODO: formData converts file to ArrayBuffer */
