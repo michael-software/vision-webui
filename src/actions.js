@@ -58,7 +58,7 @@ import './main/actions/video.js';
             event.stopPropagation();
         };
 
-        window.ui.audioPlayer.start( window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
+        window.ui.audioPlayer.start( window.user.server + '/file?path='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
 
 		window.ui.audioPlayer.onEnded(function() {
 			window.overlay.hide();
