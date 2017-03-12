@@ -12,6 +12,9 @@
 	
 	jui.views = {
 		shorthands: require('./shorthands')
+
+	jui.action = {
+		shorthands: require('./const/actions')
 	};
 
 	var _shorthands = jui.views.shorthands;
