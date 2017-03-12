@@ -44,6 +44,7 @@ export default class ContentView {
 
 		window.jui.action.addAction('openPlugin', window.actions.openPlugin);
         window.jui.action.addAction('openMedia', window.actions.openMedia);
+        window.jui.action.addAction('downloadFile', window.actions.downloadFile);
 		window.jui.action.addAction('sendAsync', (action, value) => {
             window.actions.sendAction(this.plugin, action, value);
 		});

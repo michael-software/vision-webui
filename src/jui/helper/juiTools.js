@@ -41,6 +41,10 @@ window.jui = {};
 		return !!(obj && obj.constructor && obj.call && obj.apply); // Thanks to: http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
 	};
 
+	tools.isObject = function(obj) {
+		return obj !== null && typeof obj === 'object';
+	};
+
 	tools.isArray = function(obj) {
 		if(!Array.isArray) {
 			return Object.prototype.toString.call(obj) === "[object Array]";

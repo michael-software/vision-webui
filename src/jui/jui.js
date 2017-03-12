@@ -11,7 +11,11 @@
 	var headers = null;
 	
 	jui.views = {
-		shorthands: require('./shorthands')
+		shorthands: require('./const/shorthands')
+	};
+
+	jui.action = {
+		shorthands: require('./const/actions')
 	};
 
 	var _shorthands = jui.views.shorthands;

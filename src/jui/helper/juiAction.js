@@ -1,41 +1,43 @@
 (function (action, window) {
 
     var actions = [];
+    var _tools = window.jui.tools;
 
-	action.call = function(action) {
-        var name = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$1').toLowerCase(); //(?<!\\)(?:\\{2})*\K"
+	action.call = function(pAction) {
+		var name = null;
+		var values = null;
 
-/*
-        values = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$2');
-        values = values.replace(/ ,/g, ',').replace(/, /g, ',');
+	    if(_tools.isArray(pAction)) {
+	    	action.map((singleAction) => {
+				action.call(singleAction);
+			});
+		} else if(_tools.isObject(pAction)) {
 
-        //values = (' ' + values).replace(/([^(\\)])""/g, '$1');
-        //values = (' ' + values).replace(/([^(\\)])"/g, '$1');  // RegEx: /(?<!\\)(?:\\{2})*\K"/g
+	    	if(!pAction[action.shorthands.FUNCTION_NAME]) return;
 
-        values = (' ' + values).replace(/([^(\\)])''/g, '$1');
-        values = (' ' + values).replace(/([^(\\)])'/g, '$1');
-        values = values.replace(/(^\s*')|('\s*$)/g, '');
-        //values = values.replace(/,/g, '$1');
-        values = values.trim();
-        values = values.split(',');*/
+			name = pAction[action.shorthands.FUNCTION_NAME].toLowerCase();
 
-
-
-        var values = action.replace(/((?:.?)*)\(((?:.?)*)\)/, '$2'); // removes name
-        values = values.replace(/ ,/g, ',').replace(/, /g, ','); // deletes whitespace
-
-        values = values.trim();
+	    	values = pAction[action.shorthands.FUNCTION_PARAMETER] || [];
 
 
-        if(values.charAt(0) === '\'')
-            values = values.slice(1);
-            
-        if(values.charAt(values.length-1) === '\'')
-            values = values.slice(0, values.length-1);
+		} else {
+			name = pAction.replace(/((?:.?)*)\(((?:.?)*)\)/, '$1').toLowerCase(); //(?<!\\)(?:\\{2})*\K"
 
-        values = values.split("','");
 
-        console.log(name, values);
+			values = pAction.replace(/((?:.?)*)\(((?:.?)*)\)/, '$2'); // removes name
+			values = values.replace(/ ,/g, ',').replace(/, /g, ','); // deletes whitespace
+
+			values = values.trim();
+
+
+			if (values.charAt(0) === '\'')
+				values = values.slice(1);
+
+			if (values.charAt(values.length - 1) === '\'')
+				values = values.slice(0, values.length - 1);
+
+			values = values.split("','");
+		}
 
         if(!window.jui.tools.empty(actions))
         for(var i = 0, x = actions.length; i < x; i++) {
@@ -75,4 +77,4 @@
     action.addAction('parseUrl', function(url) {
         window.jui.requestParse(url);
     })
-})(window.jui.action = {}, window);
+})(window.jui.action = window.jui.action || {}, window);
