@@ -79,7 +79,7 @@ import './main/actions/video.js';
 			event.stopPropagation();
 		}, false);
 
-		window.ui.videoPlayer.start( window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
+		window.ui.videoPlayer.start( window.user.server + '/file?path='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token) );
 		window.ui.videoPlayer.onEnded(function() {
 			window.overlay.hide();
 		});
@@ -100,7 +100,7 @@ import './main/actions/video.js';
         	imageBox.className = 'image-box';
 
         let image = document.createElement('img');
-			image.src = window.user.server + '/api/file.php?file='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token);
+			image.src = window.user.server + '/file?path='+encodeURIComponent(value)+'&jwt=' + encodeURIComponent(window.user.token);
 			image.style.maxWidth = '100%';
 			image.style.maxHeight = '100%';
 
@@ -166,7 +166,8 @@ import './main/actions/video.js';
             }
         });
 
-        xhr.open('GET', window.user.server + '/api/file.php?file=' + encodeURIComponent(value));
+        console.log('open', window.user.token);
+        xhr.open('GET', window.user.server + '/file?path=' + encodeURIComponent(value));
         xhr.setRequestHeader('Authorization', 'bearer ' + window.user.token);
 
         xhr.send();
